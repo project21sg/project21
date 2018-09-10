@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { 
+  AppBar, 
+  Toolbar,
+  SvgIcon,
+  IconButton,
+  Typography 
+} from '@material-ui/core';
+import {
+  Menu
+} from '@material-ui/icons';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+        <AppBar 
+          position="static"
+          color="primary">
+          <Toolbar>
+            <IconButton 
+              color="inherit"
+              aria-label="Open drawer">
+              <SvgIcon>
+                <Menu />
+              </SvgIcon>
+            </IconButton>
+            <Typography 
+              color="inherit">
+              Project 21
+            </Typography>
+          </Toolbar>
+
+        </AppBar>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
