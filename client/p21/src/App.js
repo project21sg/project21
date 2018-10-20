@@ -7,6 +7,7 @@ import {
 import { NavLink, Route, BrowserRouter } from 'react-router-dom';
 
 import PatientsView from './Views/Patients/view_patients';
+import UploadView from './Views/Upload/view_upload';
 
 class App extends Component {
     render() {
@@ -21,13 +22,13 @@ class App extends Component {
                                 <NavLink exact to="/check">Check</NavLink>
                             </Button>
                             <Button minimal icon="minus">
-                                <NavLink exact to="/remove">Remove</NavLink>
+                                <NavLink exact to="/upload">Upload</NavLink>
                             </Button>
                         </Navbar.Group>
                     </Navbar>
                     <div className="root-container">
                         <Route exact path="/check" component = {PatientsView} />
-                        <Route exact path="/remove" component = {() => <div>nah</div>} />
+                        <Route exact path="/upload" component = {UploadView} />
                     </div>
                 </div>
             </BrowserRouter>
