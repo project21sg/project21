@@ -18,12 +18,16 @@ class App extends Component {
                         <Navbar.Group align={Alignment.LEFT}>
                             <Navbar.Heading>P21</Navbar.Heading>
                             <Navbar.Divider />
-                            <Button minimal icon="add">
-                                <NavLink exact to="/check">Check</NavLink>
-                            </Button>
-                            <Button minimal icon="minus">
-                                <NavLink exact to="/upload">Upload</NavLink>
-                            </Button>
+                                <NavLink exact to="/check">
+                                    <Button minimal icon="add">
+                                        Check 
+                                    </Button>
+                                </NavLink>
+                                <NavLink exact to="/upload">
+                                    <Button minimal icon="minus">
+                                        Upload
+                                    </Button>
+                                </NavLink>
                         </Navbar.Group>
                     </Navbar>
                     <div className="root-container">

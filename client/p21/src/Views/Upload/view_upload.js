@@ -4,12 +4,17 @@ import {
     Tab,
     Tabs,
     Card,
+    FileInput,
     Elevation
 } from '@blueprintjs/core';
+import XLSX from 'xlsx';
 
 class UploadView extends Component {
     constructor(props) {
         super();
+        this.state = {
+            uploadedFileName: "Select file..."
+        }
         this.processFileData = this.processFileData.bind(this);
     }
 
@@ -25,15 +30,15 @@ class UploadView extends Component {
 			var bytes = new Uint8Array(data);
 			var binary = bytes.reduce((acc, byte) => acc + String.fromCharCode(byte), "");
 			var oFile = XLSX.read(binary, {type: "binary", cellDates:true, cellStyles:true});
-			// check for validation of emails
 			this.setState({
-				parsedWorkbook: oFile
+                parsedWorkbook: oFile,
 			});
 		};
 		this.setState({
-			uploadedFiles: event.target.files
+            uploadedFiles: event.target.files,
+            uploadedFileName: event.target.files[0].name //big assumption that at least 1 file is uploaded
 		});
-		fileReader.readAsArrayBuffer(event.target.files[0]);
+		fileReader.readAsArrayBuffer(event.target.files[0]); //actual trigger
 	}
 
     render() {
@@ -41,8 +46,8 @@ class UploadView extends Component {
         return(
             <div>
                 <Card interactive elevation={Elevation.TWO}> 
-                    Upload File
-                    <FileInput text="Select File" onInputChange={processFileData}/>
+                    <h3>Upload File</h3>
+                    <FileInput text={s.uploadedFileName} onInputChange={this.processFileData}/>
                 </Card>
             </div>
         );
