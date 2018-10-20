@@ -6,6 +6,8 @@ import {
 } from '@blueprintjs/core';
 import { NavLink, Route, BrowserRouter } from 'react-router-dom';
 
+import logo from './res/img/logo.png';
+
 import PatientsView from './Views/Patients/view_patients';
 import UploadView from './Views/Upload/view_upload';
 
@@ -16,15 +18,17 @@ class App extends Component {
                 <div className="App">
                     <Navbar>
                         <Navbar.Group align={Alignment.LEFT}>
-                            <Navbar.Heading>P21</Navbar.Heading>
+                            <Navbar.Heading>
+                                <img src={logo} style={{width: 32, height: 32}}/>
+                            </Navbar.Heading>
                             <Navbar.Divider />
                                 <NavLink exact to="/check">
-                                    <Button minimal icon="add">
+                                    <Button minimal icon="people">
                                         Check 
                                     </Button>
                                 </NavLink>
                                 <NavLink exact to="/upload">
-                                    <Button minimal icon="minus">
+                                    <Button minimal icon="import">
                                         Upload
                                     </Button>
                                 </NavLink>

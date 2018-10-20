@@ -4,6 +4,7 @@ import {
     Tab,
     Tabs,
     Card,
+    Label,
     FileInput,
     Elevation
 } from '@blueprintjs/core';
@@ -46,7 +47,7 @@ class UploadView extends Component {
         return(
             <div>
                 <Card interactive elevation={Elevation.TWO}> 
-                    <h3>Upload File</h3>
+                    <Label>Upload File</Label>
                     <FileInput text={s.uploadedFileName} onInputChange={this.processFileData}/>
                 </Card>
             </div>
