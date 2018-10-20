@@ -6,6 +6,8 @@ import {
 } from '@blueprintjs/core';
 import { NavLink, Route, BrowserRouter } from 'react-router-dom';
 
+import PatientsView from './Views/Patients/view_patients';
+
 class App extends Component {
     render() {
         return (
@@ -24,8 +26,8 @@ class App extends Component {
                         </Navbar.Group>
                     </Navbar>
                     <div className="root-container">
-                        <Route exact path="/check"></Route>
-                        <Route exact path="/remove"></Route>
+                        <Route exact path="/check" component = {PatientsView} />
+                        <Route exact path="/remove" component = {() => <div>nah</div>} />
                     </div>
                 </div>
             </BrowserRouter>
