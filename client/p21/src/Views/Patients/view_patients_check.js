@@ -6,12 +6,77 @@ import {
     Card
 } from '@blueprintjs/core';
 
-import MainPatientPanel from '../../Components/Panels/main_panel';
+import PatientsSummaryView from './view_patients_summary';
 
 var DUMMY_PATIENTS_DATA = [
     {
+        id: 0,
         name: 'Regina Tan',
-        age: 20
+        age: 20,
+        dob: Date(),
+        gender: 'F',
+        address: "Blk 14 Beach Road #01-4661, 199597 Bugis, Singapore",
+        contactInfo: {
+            mobile: "94321432"
+        },
+        zip: "199597",
+        occupation: "Entrepreneur",
+        maritalStatus: "Widowed",
+        nokInfo: {
+            name: "Amos Yee",
+            relationToPatient: "Mistress",
+            address: "Blk 14 Beach Road #01-4661, 199597 Bugis, Singapore",
+            contactInfo: {
+                mobile: "81234123"
+            }
+        },
+        healthProblems: ["Heart disease", "Anxiety", "Disappointment"]
+    },
+    {
+        id: 1,
+        name: 'Tan Hwa Peow',
+        age: 73,
+        dob: Date(),
+        gender: 'M',
+        address: "38B Pagoda Street",
+        contactInfo: {
+            mobile: "94233452"
+        },
+        zip: "540192",
+        occupation: "Ex-policeman",
+        maritalStatus: "Widowed",
+        nokInfo: {
+            name: "Samantha Tan",
+            relationToPatient: "Daughter",
+            address: "38B Pagoda Street",
+            contactInfo: {
+                mobile: "81234342"
+            }
+        },
+        healthProblems: ["Heart disease", "Arthritis"]
+    },
+    {
+        id: 2,
+        name: 'Kwek Geok Hwa',
+        age: 68,
+        dob: Date(),
+        gender: 'F',
+        address: "Blk 3007 Ubi Rd 1 05-412",
+        contactInfo: {
+            mobile: "94231940"
+        },
+        zip: "406701",
+        occupation: "Ex-Seamstress",
+        maritalStatus: "Widowed",
+        nokInfo: {
+            name: "Elyssa Kwek",
+            relationToPatient: "Daughter",
+            address: "Blk 3007 Ubi Rd 1 05-412",
+            contactInfo: {
+                mobile: "81234123"
+            }
+        },
+        healthProblems: ["Heart disease", "Anxiety", "Osteoporosis", "Arthritis", "High Blood Pressure"]
     },
 ]
 
@@ -36,7 +101,8 @@ class CheckPatientsView extends Component {
     }
 
     generatePatientsListView() {
-        return this.state.patients.map((p) => <Tab id="ng" title={p.name} panel={<MainPatientPanel data={p}/>}/>)
+        return this.state.patients && this.state.patients.map((p) => 
+            <Tab id={p.id} key ={p.name} title={p.name} panel={<PatientsSummaryView patientData={p}/>}/>)
     }
 
     render() {

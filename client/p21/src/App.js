@@ -23,12 +23,12 @@ class App extends Component {
                                 <img src={logo} style={{width: 32, height: 32}}/>
                             </Navbar.Heading>
                             <Navbar.Divider />
-                                <NavLink exact to="/check">
+                                <NavLink exact to="/patients">
                                     <Button minimal icon="people">
                                         Check 
                                     </Button>
                                 </NavLink>
-                                <NavLink exact to="/add">
+                                <NavLink exact to="/patients/add">
                                     <Button minimal icon="plus">
                                         Add
                                     </Button>
@@ -36,8 +36,8 @@ class App extends Component {
                         </Navbar.Group>
                     </Navbar>
                     <div className="root-container">
-                        <Route exact path="/check" component = {CheckPatientsView} />
-                        <Route exact path="/add" component = {AddPatientsView} />
+                        <Route exact path="/patients" component = {CheckPatientsView} />
+                        <Route exact path="/patients/add" component = {AddPatientsView} />
                     </div>
                 </div>
             </BrowserRouter>
