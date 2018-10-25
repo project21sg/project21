@@ -8,7 +8,7 @@ import {
 
 import MainPatientPanel from '../../Components/Panels/main_panel';
 
-class PatientsView extends Component {
+class CheckPatientsView extends Component {
     constructor(props) {
         super();
         this.state = {
@@ -43,4 +43,4 @@ class PatientsView extends Component {
     }
 }
 
-export default PatientsView;
+export default CheckPatientsView;

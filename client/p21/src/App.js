@@ -8,7 +8,8 @@ import { NavLink, Route, BrowserRouter } from 'react-router-dom';
 
 import logo from './res/img/logo.png';
 
-import PatientsView from './Views/Patients/view_patients';
+import CheckPatientsView from './Views/Patients/view_patients_check';
+import AddPatientsView from './Views/Patients/view_patients_add';
 import UploadView from './Views/Upload/view_upload';
 
 class App extends Component {
@@ -27,16 +28,16 @@ class App extends Component {
                                         Check 
                                     </Button>
                                 </NavLink>
-                                <NavLink exact to="/upload">
-                                    <Button minimal icon="import">
-                                        Upload
+                                <NavLink exact to="/add">
+                                    <Button minimal icon="plus">
+                                        Add
                                     </Button>
                                 </NavLink>
                         </Navbar.Group>
                     </Navbar>
                     <div className="root-container">
-                        <Route exact path="/check" component = {PatientsView} />
-                        <Route exact path="/upload" component = {UploadView} />
+                        <Route exact path="/check" component = {CheckPatientsView} />
+                        <Route exact path="/add" component = {AddPatientsView} />
                     </div>
                 </div>
             </BrowserRouter>
