@@ -8,14 +8,23 @@ import {
 
 import MainPatientPanel from '../../Components/Panels/main_panel';
 
+var DUMMY_PATIENTS_DATA = [
+    {
+        name: 'Regina Tan',
+        age: 20
+    },
+]
+
 class CheckPatientsView extends Component {
     constructor(props) {
         super();
         this.state = {
-            selectedTabId: "ng"
+            selectedTabId: "ng",
+            patients: DUMMY_PATIENTS_DATA
         }
 
         this.handleTabChange = this.handleTabChange.bind(this);
+        this.generatePatientsListView = this.generatePatientsListView.bind(this);
     }
 
     handleTabChange(e) {
@@ -26,15 +35,16 @@ class CheckPatientsView extends Component {
         })
     }
 
+    generatePatientsListView() {
+        return this.state.patients.map((p) => <Tab id="ng" title={p.name} panel={<MainPatientPanel data={p}/>}/>)
+    }
+
     render() {
         var s = this.state;
         return(
             <div>
                 <Tabs vertical id="TabsExample" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '10%'}}>
-                    <Tab id="ng" title="Angular" panel={<MainPatientPanel />}/>
-                    <Tab id="mb" title="Ember" />
-                    <Tab id="rx" title="React"  />
-                    <Tab id="bb" title="Backbone" />
+                    {this.generatePatientsListView()}
                     <Tabs.Expander />
                     <input className="bp3-input" type="text" placeholder="Search..." />
                 </Tabs>
