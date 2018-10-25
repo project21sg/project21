@@ -8,6 +8,8 @@ import {
 } from '@blueprintjs/core';
 
 import PatientInformationView from './view_patients_information';
+import PatientReportsView from './view_patients_report';
+import PatientTestView from './view_patients_test';
 
 class PatientsSummaryView extends Component {
     constructor(props) {
@@ -17,6 +19,7 @@ class PatientsSummaryView extends Component {
         }
 
         this.handleTabChange = this.handleTabChange.bind(this);
+        this.uploadDataHAX = this.uploadDataHAX.bind(this);
     }
 
     handleTabChange(e) {
@@ -27,14 +30,20 @@ class PatientsSummaryView extends Component {
         })
     }
 
+    uploadDataHAX(report) {
+        this.setState({
+            report: [report.uploadedFileName, report.uploadedFiles]
+        })
+    }
+
     render() {
         var s = this.state;
         return(
             <div>
                 <Tabs id="patientFunctionTabs" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '100%'}}>
                     <Tab id="pi" title="Patient Information" panel={<PatientInformationView patientData={s.patientData} />}/>
-                    <Tab id="pr" title="Past Reports/Logs" panel={<PatientInformationView patientData={s.patientData} />}/>
-                    <Tab id="ct" title="Conduct Test"  panel={<PatientInformationView patientData={s.patientData} />}/>
+                    <Tab id="pr" title="Past Reports/Logs" panel={<PatientReportsView patientData={s.patientData} report={s.report}/>}/>
+                    <Tab id="ct" title="Conduct Test"  panel={<PatientTestView uploadDataHAX={this.uploadDataHAX} patientData={s.patientData} />}/>
                 </Tabs>
             </div>
         );

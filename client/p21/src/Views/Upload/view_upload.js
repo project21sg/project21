@@ -33,13 +33,14 @@ class UploadView extends Component {
 			var oFile = XLSX.read(binary, {type: "binary", cellDates:true, cellStyles:true});
 			this.setState({
                 parsedWorkbook: oFile,
-			});
+            });
+            this.props.uploadDataHAX(this.state); //HAXXXXXX
 		};
 		this.setState({
             uploadedFiles: event.target.files,
             uploadedFileName: event.target.files[0].name //big assumption that at least 1 file is uploaded
-		});
-		fileReader.readAsArrayBuffer(event.target.files[0]); //actual trigger
+        });
+        fileReader.readAsArrayBuffer(event.target.files[0]); //actual trigger
 	}
 
     render() {
