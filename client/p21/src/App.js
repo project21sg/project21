@@ -35,7 +35,7 @@ class App extends Component {
                                 </NavLink>
                         </Navbar.Group>
                     </Navbar>
-                    <div className="root-container">
+                    <div className="root-container" style={{backgroundColor: "#202B33"}}>
                         <Route exact path="/patients" component = {CheckPatientsView} />
                         <Route exact path="/patients/add" component = {AddPatientsView} />
                     </div>

@@ -108,13 +108,13 @@ class CheckPatientsView extends Component {
     render() {
         var s = this.state;
         return(
-            <div>
+            <Card style={{width: '100%'}}>
                 <Tabs vertical id="TabsExample" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '10%'}}>
                     {this.generatePatientsListView()}
                     <Tabs.Expander />
                     <input className="bp3-input" type="text" placeholder="Search..." />
                 </Tabs>
-            </div>
+            </Card>
         );
     }
 }
