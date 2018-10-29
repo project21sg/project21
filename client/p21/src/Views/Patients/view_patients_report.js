@@ -32,6 +32,7 @@ class PatientReportsView extends Component {
         return(
             <Card style={{height: '10000'}}>
                 {this.generatePatientReportsListView()}
+                {s.report && s.report[2].Sheets[s.report[2].SheetNames[0]].A1.v}
             </Card>
         );
     }

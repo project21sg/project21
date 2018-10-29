@@ -32,7 +32,7 @@ class PatientsSummaryView extends Component {
 
     uploadDataHAX(report) {
         this.setState({
-            report: [report.uploadedFileName, report.uploadedFiles]
+            report: [report.uploadedFileName, report.uploadedFiles, report.parsedWorkbook]
         })
     }
 

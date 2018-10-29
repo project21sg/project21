@@ -108,7 +108,7 @@ class CheckPatientsView extends Component {
     render() {
         var s = this.state;
         return(
-            <Card style={{width: '100%', height: '5000'}}>
+            <Card style={{width: '100%', height: '100%'}}>
                 <Tabs vertical id="TabsExample" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{height: "100em"}}>
                     {this.generatePatientsListView()}
                     <Tabs.Expander />
