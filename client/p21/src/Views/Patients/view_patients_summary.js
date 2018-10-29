@@ -39,7 +39,7 @@ class PatientsSummaryView extends Component {
     render() {
         var s = this.state;
         return(
-            <div>
+            <div style={{width: '100%'}}>
                 <Tabs id="patientFunctionTabs" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '100%'}}>
                     <Tab id="pi" title="Patient Information" panel={<PatientInformationView patientData={s.patientData} />}/>
                     <Tab id="pr" title="Past Reports/Logs" panel={<PatientReportsView patientData={s.patientData} report={s.report}/>}/>

@@ -30,7 +30,7 @@ class PatientReportsView extends Component {
         var s = this.state;
         var p = s.patientData;
         return(
-            <Card>
+            <Card style={{height: '10000'}}>
                 {this.generatePatientReportsListView()}
             </Card>
         );

@@ -13,7 +13,7 @@ var DUMMY_PATIENTS_DATA = [
         id: 0,
         name: 'Regina Tan',
         age: 20,
-        dob: Date(),
+        dob: "20 May 1998",
         gender: 'F',
         address: "Blk 14 Beach Road #01-4661, 199597 Bugis, Singapore",
         contactInfo: {
@@ -30,13 +30,13 @@ var DUMMY_PATIENTS_DATA = [
                 mobile: "81234123"
             }
         },
-        healthProblems: ["Heart disease", "Anxiety", "Disappointment"]
-    },
+        healthProblems: ["Heart disease", "Anxiety", "Osteoporosis", "Arthritis", "High Blood Pressure"]
+    },,
     {
         id: 1,
         name: 'Tan Hwa Peow',
         age: 73,
-        dob: Date(),
+        dob: "1 Jan 1945",
         gender: 'M',
         address: "38B Pagoda Street",
         contactInfo: {
@@ -59,7 +59,7 @@ var DUMMY_PATIENTS_DATA = [
         id: 2,
         name: 'Kwek Geok Hwa',
         age: 68,
-        dob: Date(),
+        dob: "5 March 1950",
         gender: 'F',
         address: "Blk 3007 Ubi Rd 1 05-412",
         contactInfo: {
@@ -108,8 +108,8 @@ class CheckPatientsView extends Component {
     render() {
         var s = this.state;
         return(
-            <Card style={{width: '100%'}}>
-                <Tabs vertical id="TabsExample" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '10%'}}>
+            <Card style={{width: '100%', height: '5000'}}>
+                <Tabs vertical id="TabsExample" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{height: "100em"}}>
                     {this.generatePatientsListView()}
                     <Tabs.Expander />
                     <input className="bp3-input" type="text" placeholder="Search..." />

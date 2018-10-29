@@ -212,7 +212,7 @@ class AddPatientsView extends Component {
     submitForm() {
         this.showSuccess();
         this.props.history.push("/patients")
-        this.props.addPatientHAX();
+        //this.props.addPatientHAX();
     }
 
     generateQuestionaireForm() {
