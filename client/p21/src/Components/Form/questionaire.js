@@ -37,7 +37,7 @@ class QuestionaireForm extends Component {
 
     generateQuestionaireForm() {
         return this.state.questionaire.map((category) => {
-            return <Card  style={{ width: "80%"}} >
+            return <Card  style={{ width: "100%"}} >
                     <h5>{category.category}</h5>
                     {category.fields.map((question) => {
                         if(question.type == "text-area") {
@@ -74,7 +74,7 @@ class QuestionaireForm extends Component {
         return(
             <div style={{align: 'center', justifyContent: "center"}}>
                 {this.generateQuestionaireForm()}
-                <Card style={{width: "80%"}}>
+                <Card style={{width: "100%"}}>
                     <Button fill intent="primary" text="Submit" onClick={this.props.submitForm}/>
                 </Card>
             </div>

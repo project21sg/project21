@@ -55,11 +55,13 @@ class PatientInformationView extends Component {
         var s = this.state;
         var p = s.patientData;
         return(
-            <Card style={{width: "100%"}}>
-                <table class="bp3-html-table .modifier">
-                    {this.generatePatientDataView()}
-                </table>
-            </Card>
+            <div style={{width: '100%', padding: 5}}>
+                <Card style={{width: "100%"}}>
+                    <table class="bp3-html-table .modifier">
+                        {this.generatePatientDataView()}
+                    </table>
+                </Card>
+            </div>
         );
     }
 }

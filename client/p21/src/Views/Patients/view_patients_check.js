@@ -109,7 +109,12 @@ class CheckPatientsView extends Component {
         var s = this.state;
         return(
             <Card style={{width: '100%', height: '100%'}}>
-                <Tabs vertical id="TabsExample" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{height: "100em"}}>
+                <Tabs 
+                vertical 
+                id="TabsExample" 
+                onChange={this.handleTabChange} 
+                selectedTabId={s.selectedTabId} 
+                style={{width: '100%', height: "100em"}}>
                     {this.generatePatientsListView()}
                     <Tabs.Expander />
                     <input className="bp3-input" type="text" placeholder="Search..." />

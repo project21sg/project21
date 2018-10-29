@@ -18,7 +18,7 @@ class App extends Component {
             <BrowserRouter>
                 <div className="App">
                     <Navbar>
-                        <Navbar.Group align={Alignment.LEFT}>
+                        <Navbar.Group align={Alignment.LEFT} style={{marginLeft: "10%", marginRight: "10%"}}>
                             <Navbar.Heading>
                                 <img src={logo} style={{width: 32, height: 32}}/>
                             </Navbar.Heading>
@@ -35,7 +35,7 @@ class App extends Component {
                                 </NavLink>
                         </Navbar.Group>
                     </Navbar>
-                    <div className="root-container" style={{backgroundColor: "#202B33", width: '100%', height: '100%'}}>
+                    <div className="root-container" style={{backgroundColor: "#202B33", height: "100em", paddingLeft: "10%", paddingRight: "10%"}}>
                         <Route exact path="/patients" component = {CheckPatientsView} />
                         <Route exact path="/patients/add" component = {AddPatientsView} />
                     </div>
