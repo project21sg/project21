@@ -43,7 +43,11 @@ class PatientsSummaryView extends Component {
                 <Tabs id="patientFunctionTabs" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '100%'}}>
                     <Tab id="pi" title="Patient Information" panel={<PatientInformationView patientData={s.patientData} />}/>
                     <Tab id="pr" title="Past Reports/Logs" panel={<PatientReportsView patientData={s.patientData} report={s.report}/>}/>
-                    <Tab id="ct" title="Conduct Test"  panel={<PatientTestView uploadDataHAX={this.uploadDataHAX} patientData={s.patientData} />}/>
+                    <Tab id="ct" title="Conduct Test"  panel={<PatientTestView 
+                    uploadDataHAX={this.uploadDataHAX} 
+                    patientData={s.patientData} 
+                    navigateToReports={() => this.setState({selectedTabId: "pr"})}
+                    history={this.props.history}/>}/>
                 </Tabs>
             </div>
         );

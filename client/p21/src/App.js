@@ -25,12 +25,12 @@ class App extends Component {
                             <Navbar.Divider />
                                 <NavLink exact to="/patients">
                                     <Button minimal icon="people">
-                                        Check 
+                                        Patients List 
                                     </Button>
                                 </NavLink>
                                 <NavLink exact to="/patients/add">
                                     <Button minimal icon="plus">
-                                        Add
+                                        New Patient
                                     </Button>
                                 </NavLink>
                         </Navbar.Group>

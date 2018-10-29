@@ -102,7 +102,7 @@ class CheckPatientsView extends Component {
 
     generatePatientsListView() {
         return this.state.patients && this.state.patients.map((p) => 
-            <Tab id={p.id} key ={p.name} title={p.name} panel={<PatientsSummaryView patientData={p}/>}/>)
+            <Tab id={p.id} key ={p.name} title={p.name} panel={<PatientsSummaryView patientData={p} history={this.props.history}/>}/>)
     }
 
     render() {
