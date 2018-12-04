@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@blueprintjs/core": "^3.7.0",
     "antd": "^3.10.1",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",

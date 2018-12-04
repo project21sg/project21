@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Button,
-    Tab,
-    Tabs,
-    Card
-} from '@blueprintjs/core';
+
 
 class MainPanel extends Component {
     render() {

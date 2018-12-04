@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Button,
-    Tab,
-    Tabs,
-    Card
-} from '@blueprintjs/core';
+
 
 import PatientsSummaryView from './view_patients_summary';
 
@@ -101,19 +96,21 @@ class CheckPatientsView extends Component {
     }
 
     generatePatientsListView() {
-        return this.state.patients && this.state.patients.map((p) => 
-            <Tab id={p.id} key ={p.name} title={p.name} panel={<PatientsSummaryView patientData={p}/>}/>)
+        return this.state.patients && this.state.patients.map((p) => {}
+            // <Tab id={p.id} key ={p.name} title={p.name} panel={<PatientsSummaryView patientData={p}/>}/>
+        )
     }
 
     render() {
         var s = this.state;
         return(
             <div>
-                <Tabs vertical id="TabsExample" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '10%'}}>
+                12
+                {/* <Tabs vertical id="TabsExample" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '10%'}}>
                     {this.generatePatientsListView()}
                     <Tabs.Expander />
                     <input className="bp3-input" type="text" placeholder="Search..." />
-                </Tabs>
+                </Tabs> */}
             </div>
         );
     }

@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Button,
-    Tab,
-    Tabs,
-    Card,
-    Label,
-    FileInput,
-    Elevation
-} from '@blueprintjs/core';
+
 import XLSX from 'xlsx';
 
 class UploadView extends Component {
@@ -46,10 +38,11 @@ class UploadView extends Component {
         var s = this.state;
         return(
             <div>
-                <Card interactive elevation={Elevation.TWO}> 
+                34
+                {/* <Card interactive elevation={Elevation.TWO}> 
                     <Label>Upload File</Label>
                     <FileInput text={s.uploadedFileName} onInputChange={this.processFileData}/>
-                </Card>
+                </Card> */}
             </div>
         );
     }

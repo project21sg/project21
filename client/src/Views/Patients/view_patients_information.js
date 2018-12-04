@@ -1,11 +1,4 @@
 import React, { Component } from 'react';
-import {
-    Button,
-    Tab,
-    Tabs,
-    Card,
-    Text
-} from '@blueprintjs/core';
 
 class PatientInformationView extends Component {
     constructor(props) {
@@ -26,7 +19,7 @@ class PatientInformationView extends Component {
             if(object[key] instanceof Object) {
                 return this.unpackObjectToText(object[key]);
             } else {
-                return <Text>{key}: {object[key]}</Text>
+                // return <Text>{key}: {object[key]}</Text>
             }
         }
     )
@@ -35,10 +28,10 @@ class PatientInformationView extends Component {
     render() {
         var s = this.state;
         var p = s.patientData;
-        return(
-            <Card>
-                {this.generatePatientDataView()}
-            </Card>
+        return( <div></div>
+            // <Card>
+            //     {this.generatePatientDataView()}
+            // </Card>
         );
     }
 }

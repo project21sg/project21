@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-    Button,
-    Tab,
-    Tabs,
-    Card
-} from '@blueprintjs/core';
 
 import PatientInformationView from './view_patients_information';
 
@@ -31,11 +25,11 @@ class PatientsSummaryView extends Component {
         var s = this.state;
         return(
             <div>
-                <Tabs id="patientFunctionTabs" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '100%'}}>
+                {/* <Tabs id="patientFunctionTabs" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '100%'}}>
                     <Tab id="pi" title="Patient Information" panel={<PatientInformationView patientData={s.patientData} />}/>
                     <Tab id="pr" title="Past Reports/Logs" panel={<PatientInformationView patientData={s.patientData} />}/>
                     <Tab id="ct" title="Conduct Test"  panel={<PatientInformationView patientData={s.patientData} />}/>
-                </Tabs>
+                </Tabs> */}
             </div>
         );
     }

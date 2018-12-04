@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.logo {
+  align-content: center;
+  align-items: center;
+  width: 50;
+  height: 50;
+}
+
+.logo img {
+  width: 50;
+  height: 50;
+}
+
