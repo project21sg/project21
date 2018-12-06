@@ -19,9 +19,11 @@ class App extends Component {
             <BrowserRouter>
                 <Layout style={{height: "100vh"}}>
                     <Layout.Sider className="header" style={{background: "white"}}>
-                        <div style={{width: 100, height: 100, margin: "auto"}}>
-                            <img src={logoPath} style={{width: 75, height: 75, margin: 10}}/>
-                        </div>
+                        <NavLink exact to="/">
+                            <div style={{width: 100, height: 100, margin: "auto"}}>
+                                <img src={logoPath} style={{width: 75, height: 75, margin: 10}}/>
+                            </div>
+                        </NavLink>
                         <Menu
                             theme="light"      
                         >
