@@ -34,7 +34,7 @@ class App extends Component {
                             </Menu.Item>
                             <Menu.Item key="addPatients">
                                 <NavLink exact to="/patients/add">
-                                    <Icon type="user-add"/>Add Patients
+                                    <Icon type="user-add"/>Add New Patient
                                 </NavLink>
                             </Menu.Item>
                         </Menu>

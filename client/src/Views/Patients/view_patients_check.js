@@ -122,7 +122,7 @@ class CheckPatientsView extends Component {
             <div style={{margin: "5px 5px 5px 5px", padding: "0px 20px", height: "100vh", width:"100%", background: 'white'}}>
                 <Row>
                     <Col span={3} style={{borderRight: "1px solid grey", paddingTop: "10px", height: "100vh"}}>
-                        <span style={{fontWeight: 'bold'}}>Patients</span>
+                        <span style={{fontWeight: 'bold', fontSize: 20}}>Patients</span>
                         { this.generatePatientsListView() }
                     </Col>
                     <Col span={21}>
