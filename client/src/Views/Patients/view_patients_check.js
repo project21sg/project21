@@ -83,7 +83,8 @@ class CheckPatientsView extends Component {
         super();
         this.state = {
             patients: DUMMY_PATIENTS_DATA,
-            selectedPatientId: DUMMY_PATIENTS_DATA[0].id
+            selectedPatientId: DUMMY_PATIENTS_DATA[0].id,
+            selectedPatientData: DUMMY_PATIENTS_DATA[0]
         }
         this.handlePatientSelect = this.handlePatientSelect.bind(this);
         this.generatePatientsListView = this.generatePatientsListView.bind(this);
@@ -91,7 +92,8 @@ class CheckPatientsView extends Component {
 
     handlePatientSelect(id) {
         this.setState({
-            selectedPatientId: id
+            selectedPatientId: id,
+            selectedPatientData: DUMMY_PATIENTS_DATA[id]
         })
     }
 
@@ -117,14 +119,14 @@ class CheckPatientsView extends Component {
     render() {
         var s = this.state;
         return(
-            <div style={{margin: "5px 5px 5px 5px", padding: 20, height: "100vh", width:"100%", background: 'white'}}>
+            <div style={{margin: "5px 5px 5px 5px", padding: "0px 20px", height: "100vh", width:"100%", background: 'white'}}>
                 <Row>
-                    <Col span={4}>
+                    <Col span={3} style={{borderRight: "1px solid grey", paddingTop: "10px", height: "100vh"}}>
                         <span style={{fontWeight: 'bold'}}>Patients</span>
                         { this.generatePatientsListView() }
                     </Col>
-                    <Col span={20}>
-                        <PatientsSummaryView patientData={DUMMY_PATIENTS_DATA[this.state.selectedPatientId]}/>
+                    <Col span={21}>
+                        <PatientsSummaryView patientData={s.selectedPatientData}/>
                     </Col>
                 </Row>
             </div>

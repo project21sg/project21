@@ -14,6 +14,14 @@ class PatientsSummaryView extends Component {
         this.handleTabChange = this.handleTabChange.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.patientData != this.props.patientData) {
+            this.setState({
+                patientData : this.props.patientData
+            })
+        }
+    }
+
     handleTabChange(key) {
         this.setState({
             selectedTabId: key
