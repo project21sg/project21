@@ -82,21 +82,31 @@ class CheckPatientsView extends Component {
     constructor(props) {
         super();
         this.state = {
-            patients: DUMMY_PATIENTS_DATA
+            patients: DUMMY_PATIENTS_DATA,
+            selectedPatientId: DUMMY_PATIENTS_DATA[0].id
         }
-
+        this.handlePatientSelect = this.handlePatientSelect.bind(this);
         this.generatePatientsListView = this.generatePatientsListView.bind(this);
     }
 
+    handlePatientSelect(id) {
+        this.setState({
+            selectedPatientId: id
+        })
+    }
+
+    /* TODO: slightly hacky, possible to create custom view logic component for this */
     generatePatientsListView() {
         return (
             <List
             itemLayout="horizontal"
             dataSource={this.state.patients}
             renderItem={p => (
-                <List.Item>
+                <List.Item 
+                onClick={() => this.handlePatientSelect(p.id)}>
                     <List.Item.Meta
-                    title={p.name}
+                    title={this.state.selectedPatientId == p.id? p.name : ''}
+                    description={this.state.selectedPatientId != p.id? p.name : ''}
                     />
                 </List.Item>
             )}
@@ -110,10 +120,11 @@ class CheckPatientsView extends Component {
             <div style={{margin: "5px 5px 5px 5px", padding: 20, height: "100vh", width:"100%", background: 'white'}}>
                 <Row>
                     <Col span={3}>
+                        <span style={{fontWeight: 'bold'}}>Patients</span>
                         { this.generatePatientsListView() }
                     </Col>
                     <Col>
-                        Rest
+                        <PatientsSummaryView patientData={DUMMY_PATIENTS_DATA[this.state.selectedPatientId]}/>
                     </Col>
                 </Row>
             </div>
