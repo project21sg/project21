@@ -119,11 +119,11 @@ class CheckPatientsView extends Component {
         return(
             <div style={{margin: "5px 5px 5px 5px", padding: 20, height: "100vh", width:"100%", background: 'white'}}>
                 <Row>
-                    <Col span={3}>
+                    <Col span={4}>
                         <span style={{fontWeight: 'bold'}}>Patients</span>
                         { this.generatePatientsListView() }
                     </Col>
-                    <Col>
+                    <Col span={20}>
                         <PatientsSummaryView patientData={DUMMY_PATIENTS_DATA[this.state.selectedPatientId]}/>
                     </Col>
                 </Row>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-
+import {
+    Tabs
+} from 'antd';
 import PatientInformationView from './view_patients_information';
 
 class PatientsSummaryView extends Component {
@@ -13,11 +14,9 @@ class PatientsSummaryView extends Component {
         this.handleTabChange = this.handleTabChange.bind(this);
     }
 
-    handleTabChange(e) {
-        this.setState((prevState) => {
-            return {
-                selectedTabId: e.selectedTabId
-            };
+    handleTabChange(key) {
+        this.setState({
+            selectedTabId: key
         })
     }
 
@@ -25,11 +24,17 @@ class PatientsSummaryView extends Component {
         var s = this.state;
         return(
             <div>
-                {/* <Tabs id="patientFunctionTabs" onChange={this.handleTabChange} selectedTabId={s.selectedTabId} style={{width: '100%'}}>
-                    <Tab id="pi" title="Patient Information" panel={<PatientInformationView patientData={s.patientData} />}/>
-                    <Tab id="pr" title="Past Reports/Logs" panel={<PatientInformationView patientData={s.patientData} />}/>
-                    <Tab id="ct" title="Conduct Test"  panel={<PatientInformationView patientData={s.patientData} />}/>
-                </Tabs> */}
+                 <Tabs defaultActiveKey="1" onChange={this.handleTabChange}>
+                    <Tabs.TabPane tab="Patient Information" key="1">
+                        <PatientInformationView patientData={s.patientData} />
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="Past Reports/Logs" key="2">
+                        <PatientInformationView patientData={s.patientData} />
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="Conduct Test" key="3">
+                        <PatientInformationView patientData={s.patientData} />
+                    </Tabs.TabPane>
+                </Tabs>
             </div>
         );
     }
