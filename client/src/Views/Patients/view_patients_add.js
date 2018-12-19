@@ -3,11 +3,81 @@ import{
     Row,
     Col,
     Button,
-    Form,
-    Input
 } from 'antd';
 
-import MainPatientPanel from '../../Components/Panels/main_panel';
+import PatientForm from '../../Components/Forms/patient_form';
+
+var PRIMARY_FIELDS = {
+    header: "Patient Particulars",
+    fields: [
+        {
+            label: "Name",
+            inputType: "text", //text, number, dropdown, radio, datepicker, ...
+
+        },
+        {
+            label: "NRIC",
+            inputType: "text", //text, number, dropdown, radio, datepicker, ...
+        },
+        {
+            label: "Gender",
+            inputType: "radio", //text, number, dropdown, radio, datepicker, ...
+            options: ["Male", "Female"],
+        },
+        {
+            label: "Date of Birth",
+            inputType: "datepicker", //text, number, dropdown, radio, datepicker, ...
+        },
+        {
+            label: "Contact",
+            inputType: "number", //text, number, dropdown, radio, datepicker, ...
+        },
+        {
+            label: "Address",
+            inputType: "text", //text, number, dropdown, radio, datepicker, ...
+        },
+        {
+            label: "Zip Code",
+            inputType: "number", //text, number, dropdown, radio, datepicker, ...
+        },
+        {
+            label: "Occupation",
+            inputType: "text", //text, number, dropdown, radio, datepicker, ...
+        },
+        {
+            label: "Marital Status",
+            inputType: "dropdown", //text, number, dropdown, radio, datepicker, ...
+            options: ["Single", "Engaged", "Married"],
+        },
+        {
+            label: "Known Health Issues",
+            inputType: "text", //text, number, dropdown, radio, datepicker, ...
+        },
+    ],
+}
+
+var SECONDARY_FIELDS = {
+    header: "Next of Kin",
+    fields: [
+        {
+            label: "Name",
+            inputType: "text", //text, number, dropdown, radio, datepicker, ...
+        },
+        {
+            label: "Relation to Patient",
+            inputType: "dropdown", //text, number, dropdown, radio, datepicker, ...
+            options: ["N.A.","Mother", "Father", "Sibling", "Relative", "Guardian", "Caretaker"],
+        },
+        {
+            label: "Address",
+            inputType: "text", //text, number, dropdown, radio, datepicker, ...
+        },
+        {
+            label: "Contact",
+            inputType: "number", //text, number, dropdown, radio, datepicker, ...
+        },
+    ],
+}
 
 class AddPatientsView extends Component {
     constructor(props) {
@@ -20,107 +90,10 @@ class AddPatientsView extends Component {
 
     render() {
         var s = this.state;
-        var formItemLayout = {
-            labelCol: {
-                xs: { span: 24 },
-                sm: { span: 8 },
-            },
-            wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 16 },
-            }
-        }
+
         return(
             <div style={{margin: "5px 5px 5px 5px", padding: "0px 20px", height: "100vh", width:"100%", background: 'white'}}>
-                <Row>
-                    <Col span={10} style={{padding: "10px"}}>
-                        <span style={{fontWeight: 'bold', fontSize: 18}}>Patient Particulars</span>
-                        <Form>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Name">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item
-                            {...formItemLayout}
-                            label="NRIC">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Gender">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Date of Birth">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Contact">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Address">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Zip Code">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Occupation">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Marital Status">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Known Health Issues">
-                                <Input />
-                            </Form.Item>
-                        </Form>
-                    </Col>
-                    <Col span={10} style={{padding: "10px"}}>
-                        <span style={{fontWeight: 'bold', fontSize: 18}}>Next of Kin</span>
-                        <Form>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Name">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item
-                            {...formItemLayout}
-                            label="Relation to Patient">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Address">
-                                <Input />
-                            </Form.Item>
-                            <Form.Item 
-                            {...formItemLayout}
-                            label="Contact">
-                                <Input />
-                            </Form.Item>
-                        </Form>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col 
-                    span={20}
-                    style={{textAlign: 'right'}}>
-                        <Button type="primary">Submit</Button>
-                    </Col>
-                </Row>
+                <PatientForm fields={[PRIMARY_FIELDS, SECONDARY_FIELDS]} formSubmit={this._childFormSubmit}/>
             </div>
         );
     }
