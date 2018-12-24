@@ -98,7 +98,7 @@ class PatientForm extends Component {
             <Col 
             span={20}
             style={{textAlign: 'right'}}>
-                <Button type="primary" onClick={this._childFormSubmit}>Submit</Button>
+                <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
             </Col>
         </Row>
         </div> 
