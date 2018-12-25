@@ -1,5 +1,4 @@
 var express = require('express');
-var mongoose = require('mongoose');
 var path = require('path');
 var cors = require('cors');
 
@@ -8,6 +7,9 @@ var bodyParser = require('body-parser');
 
 var logger = require('morgan');
 var createError = require('http-errors');
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://mongodb:27017');
 
 require('./models/Patient');
 
