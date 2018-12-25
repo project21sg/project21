@@ -8,6 +8,7 @@ collect, display and analyze the data collected by the gait-tracking devices wor
 # AWS ECS CLI Configuration 
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html
 
 ```
 $ ecs-cli configure profile --profile-name p21-ecs --access-key $AWS_KEY --secret-key $AWS_KEY
@@ -17,3 +18,5 @@ $ ecs-cli configure --region ap-southeast-1 --cluster default --default-launch-t
 ```
 $ ecs-cli compose --file docker-compose.ecs.yml --project-name project21 service up --create-log-groups --cluster-config p21-default
 ```
+
+Update: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service.html
