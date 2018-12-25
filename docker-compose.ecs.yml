@@ -6,14 +6,15 @@ services:
     image: project21/webapp:app-client
     restart: always
     ports:
-        - "3000:80"
-    volumes:
-        - ./client:/client
-        - /client/node_modules
-    links:
-        - server
+        - "80:80"
     networks:
         - webappnetwork
+    logging:
+      driver: awslogs
+      options: 
+        awslogs-group: p21-client
+        awslogs-region: ap-southeast-1
+        awslogs-stream-prefix: nginx_react
 
   server:
     build: ./server
@@ -22,13 +23,16 @@ services:
     restart: always
     ports:
         - "9000:9000"
-    volumes:
-        - ./server:/server
-        - /server/node_modules
     depends_on:
         - mongodb
     networks:
         - webappnetwork
+    logging:
+      driver: awslogs
+      options: 
+        awslogs-group: p21-server
+        awslogs-region: ap-southeast-1
+        awslogs-stream-prefix: express
 
   mongodb: 
     image: mongo
@@ -41,6 +45,12 @@ services:
     command: mongod --noauth --smallfiles
     networks:
         - webappnetwork
+    logging:
+      driver: awslogs
+      options: 
+        awslogs-group: tutorial
+        awslogs-region: ap-southeast-1
+        awslogs-stream-prefix: mongo
 
 networks:
     webappnetwork:
