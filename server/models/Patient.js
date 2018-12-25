@@ -19,6 +19,7 @@ var PatientSchema = new mongoose.Schema({
 
 PatientSchema.methods.toJSONFor = function(patient){
   return {
+    _id: this._id,
     name: this.name,
     nric: this.nric,
     gender: this.gender, 

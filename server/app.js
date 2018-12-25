@@ -9,7 +9,14 @@ var logger = require('morgan');
 var createError = require('http-errors');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://mongodb:27017');
+
+mongoose.connect('mongodb://mongodb:27017', function(err, db) {
+  if(err) {
+    console.log('connecting to local mongo server...')
+    mongoose.connect('mongodb://localhost:27017'); //assuming it's local dev, BAD style 
+  }
+});
+
 
 require('./models/Patient');
 
