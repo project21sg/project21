@@ -60,7 +60,7 @@ var SECONDARY_FIELDS = {
     header: "Next of Kin",
     fields: [
         {
-            label: "Name",
+            label: "Next of Kin Name",
             inputType: "text", //text, number, dropdown, radio, datepicker, ...
         },
         {
@@ -69,11 +69,11 @@ var SECONDARY_FIELDS = {
             options: ["N.A.","Mother", "Father", "Sibling", "Relative", "Guardian", "Caretaker"],
         },
         {
-            label: "Address",
+            label: "Next of Kin Address",
             inputType: "text", //text, number, dropdown, radio, datepicker, ...
         },
         {
-            label: "Contact",
+            label: "Next of Kin Contact",
             inputType: "number", //text, number, dropdown, radio, datepicker, ...
         },
     ],
@@ -82,10 +82,6 @@ var SECONDARY_FIELDS = {
 class AddPatientsView extends Component {
     constructor(props) {
         super();
-        this.state = {
-            selectedTabId: "ng"
-        }
-
     }
 
     render() {
