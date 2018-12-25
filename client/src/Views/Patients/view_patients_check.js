@@ -6,94 +6,46 @@ import {
 } from 'antd';
 import PatientsSummaryView from './view_patients_summary';
 
-var DUMMY_PATIENTS_DATA = [
-    {
-        id: 0,
-        name: 'Regina Tan',
-        age: 20,
-        dob: Date(),
-        gender: 'F',
-        address: "Blk 14 Beach Road #01-4661, 199597 Bugis, Singapore",
-        contactInfo: {
-            mobile: "94321432"
-        },
-        zip: "199597",
-        occupation: "Entrepreneur",
-        maritalStatus: "Widowed",
-        nokInfo: {
-            name: "Amos Yee",
-            relationToPatient: "Mistress",
-            address: "Blk 14 Beach Road #01-4661, 199597 Bugis, Singapore",
-            contactInfo: {
-                mobile: "81234123"
-            }
-        },
-        healthProblems: ["Heart disease", "Anxiety", "Disappointment"]
-    },
-    {
-        id: 1,
-        name: 'Tan Hwa Peow',
-        age: 73,
-        dob: Date(),
-        gender: 'M',
-        address: "38B Pagoda Street",
-        contactInfo: {
-            mobile: "94233452"
-        },
-        zip: "540192",
-        occupation: "Ex-policeman",
-        maritalStatus: "Widowed",
-        nokInfo: {
-            name: "Samantha Tan",
-            relationToPatient: "Daughter",
-            address: "38B Pagoda Street",
-            contactInfo: {
-                mobile: "81234342"
-            }
-        },
-        healthProblems: ["Heart disease", "Arthritis"]
-    },
-    {
-        id: 2,
-        name: 'Kwek Geok Hwa',
-        age: 68,
-        dob: Date(),
-        gender: 'F',
-        address: "Blk 3007 Ubi Rd 1 05-412",
-        contactInfo: {
-            mobile: "94231940"
-        },
-        zip: "406701",
-        occupation: "Ex-Seamstress",
-        maritalStatus: "Widowed",
-        nokInfo: {
-            name: "Elyssa Kwek",
-            relationToPatient: "Daughter",
-            address: "Blk 3007 Ubi Rd 1 05-412",
-            contactInfo: {
-                mobile: "81234123"
-            }
-        },
-        healthProblems: ["Heart disease", "Anxiety", "Osteoporosis", "Arthritis", "High Blood Pressure"]
-    },
-]
-
 class CheckPatientsView extends Component {
     constructor(props) {
         super();
         this.state = {
-            patients: DUMMY_PATIENTS_DATA,
-            selectedPatientId: DUMMY_PATIENTS_DATA[0].id,
-            selectedPatientData: DUMMY_PATIENTS_DATA[0]
+            patients: []
         }
+
         this.handlePatientSelect = this.handlePatientSelect.bind(this);
         this.generatePatientsListView = this.generatePatientsListView.bind(this);
+    }
+
+    _retrievePatients() {
+        fetch('http://localhost:9000/api/patients/all', {
+            method: 'get',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((resp) => resp.json())
+        .then((json) => {
+            console.log(json);
+
+            this.setState({
+                patients: json.data,
+                selectedPatientId: json.data[0].id,
+                selectedPatientData: json.data[0]
+            });
+        });
+    }
+
+    componentDidMount() {
+        this._retrievePatients();
     }
 
     handlePatientSelect(id) {
         this.setState({
             selectedPatientId: id,
-            selectedPatientData: DUMMY_PATIENTS_DATA[id]
+            selectedPatientData: this.state.patients[id]
         })
     }
 
