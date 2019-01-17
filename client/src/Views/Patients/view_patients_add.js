@@ -148,7 +148,7 @@ class AddPatientsView extends Component {
     render() {
         return(
             <div style={{margin: "5px 5px 5px 5px", padding: "0px 20px", height: "100vh", width:"100%", background: 'white'}}>
-                <PatientForm fields={[PRIMARY_FIELDS, SECONDARY_FIELDS]} formSubmit={this._childFormSubmit}/>
+                <PatientForm fields={[PRIMARY_FIELDS, SECONDARY_FIELDS]} formSubmit={this._childFormSubmit} history={this.props.history} />
             </div>
         );
     }

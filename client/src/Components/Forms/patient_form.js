@@ -7,7 +7,8 @@ import{
     Input,
     Radio,
     Select,
-    DatePicker
+    DatePicker,
+    message
 } from 'antd';
 
 class PatientForm extends Component {
@@ -24,6 +25,8 @@ class PatientForm extends Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 this._uploadData(values);
+                message.success('Patient successfully added!');
+                this.props.history.push('/patients');
             }
         });
     }
