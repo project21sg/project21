@@ -16,7 +16,7 @@ class PatientsSummaryView extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.patientData != this.props.patientData) {
+        if(prevProps.patientData !== this.props.patientData) {
             this.setState({
                 patientData : this.props.patientData
             })
