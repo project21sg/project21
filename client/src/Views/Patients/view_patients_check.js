@@ -31,7 +31,7 @@ class CheckPatientsView extends Component {
             this.setState({
                 patients: json.data,
                 selectedPatientData: json.data[0],
-                selectedPatientId: json.data[0] ? json.data[0].id : '',
+                selectedPatientId: json.data[0] ? json.data[0]._id : '',
             });
         });
     }
@@ -43,7 +43,7 @@ class CheckPatientsView extends Component {
     handlePatientSelect(id) {
         this.setState({
             selectedPatientId: id,
-            selectedPatientData: this.state.patients[id]
+            selectedPatientData: this.state.patients.find((p) => p._id === id)
         })
     }
 
@@ -55,10 +55,10 @@ class CheckPatientsView extends Component {
             dataSource={this.state.patients}
             renderItem={p => (
                 <List.Item 
-                onClick={() => this.handlePatientSelect(p.id)}>
+                onClick={() => this.handlePatientSelect(p._id)}>
                     <List.Item.Meta
-                    title={this.state.selectedPatientId == p.id? p.name : ''}
-                    description={this.state.selectedPatientId != p.id? p.name : ''}
+                    title={this.state.selectedPatientId === p._id? p.name : ''}
+                    description={this.state.selectedPatientId !== p._id? p.name : ''}
                     />
                 </List.Item>
             )}
