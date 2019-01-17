@@ -9,7 +9,6 @@ import{
     Select,
     DatePicker
 } from 'antd';
-import moment from 'moment';
 
 class PatientForm extends Component {
     constructor(props) {
@@ -109,12 +108,8 @@ class PatientForm extends Component {
             {...layout}
             key={f.label}
             label={f.label}>
-                {this.props.form.getFieldDecorator(f.label.toLowerCase(),
-                    {
-                        rules: [{required: true, message: "Field cannot be left empty!"}],
-                        initialValue: f.inputType === "datepicker" ? moment('01-01-1980', "DD-MM-YYYY") : f.options ? f.options[0] : null,
-                    }
-                    ) ( this._buildFormItemView(f) )
+                {
+                    this.props.form.getFieldDecorator(f.label.toLowerCase(), f.validationConfig) ( this._buildFormItemView(f) )
                 }
             </Form.Item>
         )}
