@@ -28,12 +28,10 @@ class CheckPatientsView extends Component {
         })
         .then((resp) => resp.json())
         .then((json) => {
-            console.log(json);
-
             this.setState({
                 patients: json.data,
-                selectedPatientId: json.data[0].id,
-                selectedPatientData: json.data[0]
+                selectedPatientData: json.data[0],
+                selectedPatientId: json.data[0] ? json.data[0].id : '',
             });
         });
     }
