@@ -9,12 +9,15 @@ var logger = require('morgan');
 var createError = require('http-errors');
 
 var mongoose = require('mongoose');
+var mongooseOptions = { useMongoClient: true };
 
-mongoose.connect('mongodb://mongodb:27017', function(err, db) {
+
+mongoose.connect('mongodb://mongodb:27017', mongooseOptions, function(err) {
   if(err) {
-    console.log('connecting to local mongo server...')
-    mongoose.connect('mongodb://localhost:27017'); //assuming it's local dev, BAD style 
+    console.log("Can't connect to mongodb:server; connecting to local mongo server...")
+    mongoose.connect('mongodb://localhost:27017', mongooseOptions); //assuming it's local dev, BAD style 
   }
+  console.log("Connected.")
 });
 
 
