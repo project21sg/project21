@@ -7,11 +7,11 @@ import {
 import { NavLink, Route, BrowserRouter } from 'react-router-dom';
 
 import logoPath from './res/img/logo.png';
-import styles from './index.css'; //TODO: css modules not working for some reason
+//import styles from './index.css'; //TODO: css modules not working for some reason
 
 import CheckPatientsView from './Views/Patients/view_patients_check';
 import AddPatientsView from './Views/Patients/view_patients_add';
-import UploadView from './Views/Upload/view_upload';
+//import UploadView from './Views/Upload/view_upload';
 
 class App extends Component {
     render() {
@@ -21,7 +21,7 @@ class App extends Component {
                     <Layout.Sider className="header" style={{background: "white"}}>
                         <NavLink exact to="/">
                             <div style={{width: 100, height: 100, margin: "auto"}}>
-                                <img src={logoPath} style={{width: 75, height: 75, margin: 10}}/>
+                                <img src={logoPath} style={{width: 75, height: 75, margin: 10}} alt='p21-logo'/>
                             </div>
                         </NavLink>
                         <Menu

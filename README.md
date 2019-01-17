@@ -4,6 +4,22 @@ This repo holds the web app for Project 21, a low-cost gait-tracking and analysi
 The web app aims to allow users (doctors) to easily monitor their patients' gait patterns and diagnose them by providing an easy way to
 collect, display and analyze the data collected by the gait-tracking devices worn by the patients.
 
+# Local Development Setup
+
+## Running Client Frontend
+
+Run `yarn start` in the /client directory.
+Do `yarn build` to create the production ready build.
+
+## Running Server Backend
+
+Run `node app.js` in the /server directory.
+
+## Running Database Backend
+
+To install a local database instance, `sudo apt-get install mongodb`.
+To start the database, `sudo service mongodb start`.
+
 
 # Docker WSL Setup
 

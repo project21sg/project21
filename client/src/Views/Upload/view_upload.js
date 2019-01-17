@@ -35,7 +35,7 @@ class UploadView extends Component {
 	}
 
     render() {
-        var s = this.state;
+        //var s = this.state;
         return(
             <div>
                 34

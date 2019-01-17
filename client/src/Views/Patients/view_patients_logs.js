@@ -16,7 +16,7 @@ class PatientLogsView extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.patientData != this.props.patientData) {
+        if(prevProps.patientData !== this.props.patientData) {
             this.setState({
                 patientData : this.props.patientData
             })
@@ -46,6 +46,7 @@ class PatientLogsView extends Component {
                     </Row>               
                 )
             }
+            return <div></div>;//default
         })
     }
 
