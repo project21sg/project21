@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/all', function(req,res, next) {
     Patient.find({}, function(err, patients) {
-        console.log('Sending patient data to :' + req.ip);
+        console.log('Sending patient data to : ' + req.ip);
         return res.json({data: patients});
     });
 });
@@ -26,7 +26,7 @@ router.post('/', function(req, res, next) {
     patient.zipCode = req.body.patient.zipCode;
     patient.occupation = req.body.patient.occupation;
     patient.maritalStatus = req.body.patient.maritalStatus;
-    patient.knownHealthIssues = req.body.patient.knownHealthIssue;
+    patient.knownHealthIssues = req.body.patient.knownHealthIssues;
     patient.nokName = req.body.patient.nokName;
     patient.nokRelation = req.body.patient.nokRelation;
     patient.nokAddress = req.body.patient.nokAddress;
