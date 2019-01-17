@@ -62,6 +62,46 @@ class PatientForm extends Component {
         })
     }
 
+    _buildFormItemView(field)  {
+        switch(field.inputType) {
+            case "radio":
+                return (
+                    <Radio.Group>
+                    {field.options.map((o) => 
+                        <Radio 
+                        key={o.toLowerCase()}
+                        value={o.toLowerCase()}>
+                            {o}
+                        </Radio>
+                    )}
+                    </Radio.Group>
+                )
+            case "datepicker":
+                return(
+                    <DatePicker 
+                    key={field.label}
+                    format="DD-MM-YYYY"/>
+                )
+            case "dropdown":
+                return(
+                    <Select
+                    key={field.label}>
+                    {field.options.map((o) => 
+                        <Select.Option 
+                        key={o.toLowerCase()}
+                        value={o.toLowerCase()}>
+                            {o}
+                        </Select.Option>
+                    )}
+                    </Select>
+                )
+            default:
+                return(
+                    <Input key={field.label} />
+                )
+        }
+    }
+
     _buildForm(fields, layout) {
         return <Form onSubmit={this.handleSubmit}>
         {fields.map((f) => 
@@ -69,38 +109,12 @@ class PatientForm extends Component {
             {...layout}
             key={f.label}
             label={f.label}>
-                {
-                    this.props.form.getFieldDecorator(f.label.toLowerCase(),
+                {this.props.form.getFieldDecorator(f.label.toLowerCase(),
                     {
                         rules: [{required: true, message: "Field cannot be left empty!"}],
                         initialValue: f.inputType === "datepicker" ? moment('01-01-1980', "DD-MM-YYYY") : f.options ? f.options[0] : null,
-                    }) (   
-                        f.inputType === "radio" 
-                        ? <Radio.Group>
-                            {f.options.map((o) => 
-                                <Radio 
-                                key={o.toLowerCase()}
-                                value={o.toLowerCase()}>
-                                    {o}
-                                </Radio>
-                            )}
-                            </Radio.Group>
-                        : f.inputType === "datepicker"
-                        ? <DatePicker 
-                        key={f.label}
-                        format="DD-MM-YYYY"/>
-                        : f.inputType === "dropdown"
-                        ? <Select>
-                            {f.options.map((o) => 
-                                <Select.Option 
-                                key={o.toLowerCase()}
-                                value={o.toLowerCase()}>
-                                    {o}
-                                </Select.Option>
-                            )}
-                            </Select>
-                        : <Input key={f.label} />
-                    )
+                    }
+                    ) ( this._buildFormItemView(f) )
                 }
             </Form.Item>
         )}
@@ -122,7 +136,7 @@ class PatientForm extends Component {
         return <div>
         <Row>
             {this.state.fields.map((f) => 
-                <Col span={10} style={{padding: "10px"}}>
+                <Col span={10} style={{padding: "10px"}} key={f.header}>
                     <span style={{fontWeight: 'bold', fontSize: 18}}>{f.header}</span>
                     {this._buildForm(f.fields, formItemLayout)}
                 </Col>
