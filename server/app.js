@@ -11,7 +11,6 @@ var createError = require('http-errors');
 var mongoose = require('mongoose');
 var mongooseOptions = { useMongoClient: true };
 
-
 mongoose.connect('mongodb://mongodb:27017', mongooseOptions, function(err) {
   if(err) {
     console.log("Can't connect to mongodb:server; connecting to local mongo server...")
@@ -22,7 +21,6 @@ mongoose.connect('mongodb://mongodb:27017', mongooseOptions, function(err) {
 
 
 require('./models/Patient');
-
 var apiRouter = require('./routes');
 
 var app = express();
@@ -54,5 +52,12 @@ app.use(function(err, req, res, next) {
     error: err
   }});
 });
+
+var server = app.listen(9000, function () {
+  var host = server.address().address
+  var port = server.address().port
+  
+  console.log("P21 server listening at http://%s:%s", host, port)
+})
 
 module.exports = app;

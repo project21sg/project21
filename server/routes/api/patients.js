@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/all', function(req,res, next) {
     Patient.find({}, function(err, patients) {
-        console.log('sending..');
+        console.log('Sending patient data to :' + req.ip);
         return res.json({data: patients});
     });
 });
