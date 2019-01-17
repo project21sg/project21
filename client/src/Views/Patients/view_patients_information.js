@@ -37,11 +37,12 @@ class PatientInformationView extends Component {
                 label = label.replace(/([A-Z])/g, ' $1').trim();
 
                 return (
-                    <Row >
-                        <Col span={8}>
+                    <Row 
+                    key={label}>
+                        <Col span={9}>
                             {label}
                         </Col>
-                        <Col span={16}>
+                        <Col span={15}>
                             {
                                 object[key] instanceof Array 
                                 ? object[key].map(x => x+', ') 
@@ -73,26 +74,32 @@ class PatientInformationView extends Component {
         };
 
         var nok = p && {
-            nextOfKinName: p.nokName,
-            nextOfKinRelation: p.nokRelation,
-            nextOfKinAddress: p.nokAddress,
-            nextOfKinContact: p.nokContact
+            name: p.nokName,
+            relation: p.nokRelation,
+            address: p.nokAddress,
+            contact: p.nokContact
         };
         var ex = ['_id', '__v', 'createdAt', 'updatedAt'];
 
         return( 
+            <div>
             <Row>
-                <Col span={12}>
+                <Col span={14}>
                     <Card style={{margin: 5}}>
+                        <span style={{fontWeight: 'bold', fontSize: 15}}>Patient</span>
                         {p && this.generatePatientDataView(patient, ex)}
                     </Card> 
                 </Col>
-                <Col span={12}>
+            </Row>
+            <Row>
+                <Col span={14}>
                     <Card style={{margin: 5}}>
+                        <span style={{fontWeight: 'bold', fontSize: 15}}>Next of Kin</span>
                         {p && this.generatePatientDataView(nok, ex)}
                     </Card>
                 </Col>
             </Row>
+            </div>
         );
     }
 }
