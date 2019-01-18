@@ -8,19 +8,9 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var createError = require('http-errors');
 
-var mongoose = require('mongoose');
-var mongooseOptions = { useMongoClient: true };
+var mongoose = require('./db/mongodb');
+var mysql = require('./db/mysqldb');
 
-mongoose.connect('mongodb://mongodb:27017', mongooseOptions, function(err) {
-  if(err) {
-    console.log("Can't connect to mongodb:server; connecting to local mongo server...")
-    mongoose.connect('mongodb://localhost:27017', mongooseOptions); //assuming it's local dev, BAD style 
-  }
-  console.log("Connected.")
-});
-
-
-require('./models/Patient');
 var apiRouter = require('./routes');
 
 var app = express();
@@ -59,5 +49,21 @@ var server = app.listen(9000, function () {
   
   console.log("P21 server listening at http://%s:%s", host, port)
 })
+
+process.on('SIGINT', () => {
+  console.info('SIGTERM signal received.');
+  console.log('Closing http server.');
+  server.close(() => {
+    console.log('Http server closed.');
+    // boolean means [force], see in mongoose doc
+    mongoose.connection.close(false, () => {
+      console.log('mongoDb connection closed.');
+    });
+
+    mysql.end((err) => {
+      console.log('mysqldb connection closed.');
+    });
+  });
+});
 
 module.exports = app;
