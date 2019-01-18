@@ -1,14 +1,14 @@
 version: "3"
 services:
   client:
-    build: ./client
-    container_name: "app-client"
+    #build: ./client
+    #container_name: "app-client"
     image: project21/webapp:app-client
-    restart: always
+    #restart: always
     ports:
         - "80:80"
-    networks:
-        - webappnetwork
+    #networks:
+    #    - webappnetwork
     logging:
       driver: awslogs
       options: 
@@ -17,16 +17,16 @@ services:
         awslogs-stream-prefix: nginx_react
 
   server:
-    build: ./server
-    container_name: "app-server"
+    #build: ./server
+    #container_name: "app-server"
     image: project21/webapp:app-server
-    restart: always
+    #restart: always
     ports:
         - "9000:9000"
-    depends_on:
-        - mongodb
-    networks:
-        - webappnetwork
+    #depends_on:
+    #    - mongodb
+    #networks:
+    #    - webappnetwork
     logging:
       driver: awslogs
       options: 
@@ -36,21 +36,37 @@ services:
 
   mongodb: 
     image: mongo
-    restart: always
-    container_name: mongodb
+    #restart: always
+    #container_name: mongodb
     # volumes:
     #     - ./data-node:/data/db
     ports:
         - 27017:27017
     command: mongod --noauth --smallfiles
-    networks:
-        - webappnetwork
+    #networks:
+    #    - webappnetwork
     logging:
       driver: awslogs
       options: 
-        awslogs-group: tutorial
+        awslogs-group: p21-databases
         awslogs-region: ap-southeast-1
         awslogs-stream-prefix: mongo
+
+  mysql:
+    image: mysql
+    #restart: always
+    #container_name: mysqldb
+    command: --default-authentication-plugin=mysql_native_password
+    #networks:
+    #    - webappnetwork
+    environment:
+        MYSQL_ROOT_PASSWORD: example
+    logging:
+      driver: awslogs
+      options: 
+        awslogs-group: p21-databases
+        awslogs-region: ap-southeast-1
+        awslogs-stream-prefix: mysql
 
 networks:
     webappnetwork:
