@@ -14,7 +14,7 @@ class CircularPercentage extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.data !== this.props.percent) {
+        if(prevProps.data !== this.props.percent && this.props.percent instanceof Number) {
             this.setState({
                 data : this.props.percent
             })
