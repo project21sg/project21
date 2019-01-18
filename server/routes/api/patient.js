@@ -2,10 +2,6 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Patient = mongoose.model('Patient');
 
-router.get('/', function(req, res, next) {
-    res.send('P"s API is working properly');
-});
-
 router.get('/all', function(req,res, next) {
     Patient.find({}, function(err, patients) {
         console.log('Sending patient data to : ' + req.ip);
@@ -13,7 +9,9 @@ router.get('/all', function(req,res, next) {
     });
 });
 
-router.post('/', function(req, res, next) {
+//TODO: append user_id after accounts implemented 
+router.route('/')
+.post(function(req, res, next) {
     var patient = new Patient();
 
     console.log(req.body);
@@ -35,6 +33,19 @@ router.post('/', function(req, res, next) {
     return patient.save().then(function() {
         return res.json({msg: "patient added"});
     }).catch(next);
+})
+
+router.route('/:patient_id')
+.delete(function(req, res, next) {
+    console.log(req.params);
+    var patientIdToDelete = req.params.patient_id;
+
+    Patient.deleteOne({ _id: patientIdToDelete }, function(err) {
+        if(err) {
+            console.log(err);
+        }
+        return res.json({msg: 'Deleted '+patientIdToDelete});
+    })
 });
 
 

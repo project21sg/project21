@@ -3,6 +3,7 @@ import {
     Row,
     Col,
     List,
+    Button
 } from 'antd';
 import PatientsSummaryView from './view_patients_summary';
 
@@ -10,9 +11,8 @@ class CheckPatientsView extends Component {
     constructor(props) {
         super();
         this.state = {
-            patients: []
+            patients: null
         }
-
         this.handlePatientSelect = this.handlePatientSelect.bind(this);
         this.generatePatientsListView = this.generatePatientsListView.bind(this);
     }
@@ -32,9 +32,20 @@ class CheckPatientsView extends Component {
             this.setState({
                 patients: json.data,
                 selectedPatientData: json.data ? json.data[0] : null,
-                selectedPatientId: json.data ? json.data[0]._id : '',
+                selectedPatientId: json.data[0] ? json.data[0]._id : '',
             });
+            console.log('received' + json);
         });
+    }
+
+    _deletePatient(id) {
+        console.log('deleting '+id)
+        fetch(`http://localhost:9000/api/patient/${id}`, {
+            method: 'delete',
+            mode: 'cors',
+        })
+        .then((resp) => resp.json())
+        .then((json) => console.log(json))
     }
 
     componentDidMount() {
@@ -49,11 +60,11 @@ class CheckPatientsView extends Component {
     }
 
     /* TODO: slightly hacky, possible to create custom view logic component for this */
-    generatePatientsListView() {
+    generatePatientsListView(data) {
         return (
             <List
             itemLayout="horizontal"
-            dataSource={this.state.patients}
+            dataSource={data}
             renderItem={p => (
                 <List.Item 
                 onClick={() => this.handlePatientSelect(p._id)}>
@@ -61,6 +72,7 @@ class CheckPatientsView extends Component {
                     title={this.state.selectedPatientId === p._id? p.name : ''}
                     description={this.state.selectedPatientId !== p._id? p.name : ''}
                     />
+                    <Button  type="danger" size="small" onClick={() => this._deletePatient(p._id)}>X</Button>
                 </List.Item>
             )}
             />
@@ -74,7 +86,7 @@ class CheckPatientsView extends Component {
                 <Row>
                     <Col span={4} style={{borderRight: "1px solid grey", paddingTop: "10px", height: "100vh"}}>
                         <span style={{fontWeight: 'bold', fontSize: 20}}>Patients</span>
-                        { this.generatePatientsListView() }
+                        { s.patients && this.generatePatientsListView(s.patients) }
                     </Col>
                     <Col span={20}>
                         {
