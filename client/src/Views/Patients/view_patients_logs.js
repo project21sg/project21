@@ -53,7 +53,6 @@ class PatientLogsView extends Component {
     }
 
     render() {
-        var s = this.state;
         return( 
         <div>
             <Row>

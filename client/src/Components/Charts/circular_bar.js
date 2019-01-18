@@ -58,35 +58,27 @@ class CircularBar extends Component {
                 }}
                 />
                 <VictoryAnimation
-                data={value }
+                data={value}
                 >
-                {(text) => {
+                {(value) => {
                     return(
                         <VictoryLabel
                         textAnchor='middle'
-                        x='50%' y='45%'
+                        x="50%" y="45%"
                         verticalAnchor='middle'
-                        text={`${text}${suffix}`}
+                        text={`${value}`+suffix}
                         style={{fontSize: '100'}}
                         />  
                     )
                 }}
                 </VictoryAnimation>
-                <VictoryAnimation
-                data={labelText}
-                >
-                {(text) => {
-                    return(
-                        <VictoryLabel
-                        textAnchor='middle'
-                        x='50%' y='65%'
-                        verticalAnchor='middle'
-                        text={text}
-                        style={{fontSize: '40'}}
-                        />
-                    )
-                }}
-                </VictoryAnimation>
+                <VictoryLabel
+                textAnchor='middle'
+                x="50%" y="65%"
+                verticalAnchor='middle'
+                text={labelText}
+                style={{fontSize: '50'}}
+                />  
             </svg>
         );
     }
