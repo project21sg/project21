@@ -82,6 +82,7 @@ class PatientInformationView extends Component {
         var ex = ['_id', '__v', 'createdAt', 'updatedAt'];
 
         return( 
+            p?
             <div>
             <Row>
                 <Col span={14}>
@@ -100,6 +101,7 @@ class PatientInformationView extends Component {
                 </Col>
             </Row>
             </div>
+            :<div></div>
         );
     }
 }
