@@ -31,6 +31,7 @@ class PatientForm extends Component {
         });
     }
     
+    //TODO: refactor into data logic container component (parent)
     _uploadData(values) {
         var data = {
             patient: {

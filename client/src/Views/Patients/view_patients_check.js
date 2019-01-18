@@ -17,6 +17,7 @@ class CheckPatientsView extends Component {
         this.generatePatientsListView = this.generatePatientsListView.bind(this);
     }
 
+    /* TODO: should refactor data logic into a container component */
     _retrievePatients() {
         fetch('http://localhost:9000/api/patient/all', {
             method: 'get',

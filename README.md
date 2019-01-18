@@ -20,6 +20,9 @@ Run `node app.js` in the /server directory.
 To install a local database instance, `sudo apt-get install mongodb`.
 To start the database, `sudo service mongodb start`.
 
+You also need to have a MySQL database instance, `sudo apt-get install mysql-server`.
+If on WSL, the default auth details are `root:root`.
+To start the database, `sudo service mysql start`.
 
 # Docker WSL Setup
 
