@@ -25,10 +25,13 @@ class HoriLabeledBar extends Component {
         var s = this.state;
         return(         
             <VictoryChart
+            height={200}
+            padding={{ left: 100 }}
             domainPadding={{ y: 50 }}
             >
                 <VictoryBar horizontal
-                    barWidth={30}
+                    height={200}
+                    barWidth={20}
                     data={ s.data.map((x) => {return {x: x.label, y: x.value}})  }
                     labels={ (d) => d.y }
                     labelComponent={<VictoryLabel dx={-40}/>}

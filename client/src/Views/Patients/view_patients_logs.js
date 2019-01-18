@@ -8,11 +8,22 @@ import {
 import SingleCircularBar from '../../Components/Charts/circular_bar';
 import HoriLabeledBar from '../../Components/Charts/hori_labeled_bar';
 
+const DUMMY_DATA = [
+    {
+        fallRiskPercent: 4,
+        speed: 39,
+        symmetry: 43,
+        stopRatio: 39,
+        tugDuration: 10,
+    }
+]
+
 class PatientLogsView extends Component {
     constructor(props) {
         super();
         this.state = {
-            patientData: props.patientData
+            patientData: DUMMY_DATA,//props.patientData
+            selectedDataIdx: 0
         }
     
         this.generatePatientDataView = this.generatePatientDataView.bind(this);
@@ -21,7 +32,7 @@ class PatientLogsView extends Component {
     componentDidUpdate(prevProps) {
         if(prevProps.patientData !== this.props.patientData) {
             this.setState({
-                patientData : this.props.patientData
+                patientData : DUMMY_DATA// this.props.patientData
             })
         }
     }
@@ -54,13 +65,14 @@ class PatientLogsView extends Component {
     }
 
     render() {
+        var data = this.state.patientData[this.state.selectedDataIdx];
         return( 
         <div>
             <Row>
                 <Col span={4}>
-                    <Card style={{margin: 5}}>
+                    <Card style={{margin: 5, height: 250}}>
                         Overall Score
-                        <SingleCircularBar value={50} maxValue={100} suffix={'%'} thresholds={
+                        <SingleCircularBar value={data.fallRiskPercent} maxValue={100} suffix={'%'} thresholds={
                             [
                                 {level: 30, label:'LOW', color: 'green'},
                                 {level: 60, label:'MEDIUM', color: 'orange'},
@@ -69,20 +81,20 @@ class PatientLogsView extends Component {
                         }/>
                     </Card> 
                 </Col>
-                <Col span={8}>
-                    <Card style={{margin: 5}}>
+                <Col span={10}>
+                    <Card style={{margin: 5, height: 250}}>
                         Gait Balance
                         <HoriLabeledBar data={[
-                            {value: 20, label: 'Speed'},
-                            {value: 30, label: 'Power'},
-                            {value: 40, label: 'Thrust'},
+                            {value: data.speed, label: 'Speed'},
+                            {value: data.symmetry, label: 'Symmetry'},
+                            {value: data.stopRatio, label: 'Stop Ratio'},
                         ]}/>
                     </Card> 
                 </Col>
                 <Col span={4}>
-                    <Card style={{margin: 5}}>
+                    <Card style={{margin: 5, height: 250}}>
                         Timed Up and Go
-                        <SingleCircularBar value={10} maxValue={60} suffix={''} thresholds={
+                        <SingleCircularBar value={data.tugDuration} maxValue={60} suffix={''} thresholds={
                             [
                                 {level: 15, label:'SECONDS', color: 'green'},
                                 {level: 30, label:'SECONDS', color: 'orange'},
@@ -93,7 +105,7 @@ class PatientLogsView extends Component {
                 </Col>
             </Row>
             <Row>
-                <Col span={16}>
+                <Col span={18}>
                     <Card style={{margin: 5}}>
                         Gait Data
                         
@@ -101,7 +113,7 @@ class PatientLogsView extends Component {
                 </Col>
             </Row>
             <Row>
-                <Col span={16}>
+                <Col span={18}>
                     <Card style={{margin: 5}}>
                         Fall Risk Status/ Risk Factor Checklist
                     </Card> 
