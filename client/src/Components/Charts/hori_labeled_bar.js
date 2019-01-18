@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     VictoryChart,
     VictoryBar,
+    VictoryLabel,
 } from 'victory';
 
 class HoriLabeledBar extends Component {
@@ -24,14 +25,17 @@ class HoriLabeledBar extends Component {
         var s = this.state;
         return(         
             <VictoryChart
-            domainPadding={{ y: 20 }}
+            domainPadding={{ y: 50 }}
             >
                 <VictoryBar horizontal
                     barWidth={30}
+                    data={ s.data.map((x) => {return {x: x.label, y: x.value}})  }
+                    labels={ (d) => d.y }
+                    labelComponent={<VictoryLabel dx={-40}/>}
                     style={{
                         data: { fill: "green" },
+                        labels: {fontSize: 20, fill: 'white'}
                     }}
-                    data={ s.data.map((x) => {return {x: x.label, y: x.value}})  }
                 />
             </VictoryChart>
         );
