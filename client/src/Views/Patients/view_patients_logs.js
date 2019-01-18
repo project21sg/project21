@@ -6,6 +6,7 @@ import {
 } from 'antd';
 
 import SingleCircularBar from '../../Components/Charts/circular_bar';
+import HoriLabeledBar from '../../Components/Charts/hori_labeled_bar';
 
 class PatientLogsView extends Component {
     constructor(props) {
@@ -68,10 +69,14 @@ class PatientLogsView extends Component {
                         }/>
                     </Card> 
                 </Col>
-                <Col span={6}>
+                <Col span={8}>
                     <Card style={{margin: 5}}>
                         Gait Balance
-                        
+                        <HoriLabeledBar data={[
+                            {value: 20, label: 'Speed'},
+                            {value: 30, label: 'Power'},
+                            {value: 40, label: 'Thrust'},
+                        ]}/>
                     </Card> 
                 </Col>
                 <Col span={4}>
@@ -88,7 +93,7 @@ class PatientLogsView extends Component {
                 </Col>
             </Row>
             <Row>
-                <Col span={14}>
+                <Col span={16}>
                     <Card style={{margin: 5}}>
                         Gait Data
                         
@@ -96,7 +101,7 @@ class PatientLogsView extends Component {
                 </Col>
             </Row>
             <Row>
-                <Col span={14}>
+                <Col span={16}>
                     <Card style={{margin: 5}}>
                         Fall Risk Status/ Risk Factor Checklist
                     </Card> 
