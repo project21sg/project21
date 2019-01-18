@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
+var mysql = require('../../db/mysqldb');
 var Patient = mongoose.model('Patient');
 
 router.get('/all', function(req,res, next) {
@@ -30,7 +31,26 @@ router.route('/')
     patient.nokAddress = req.body.patient.nokAddress;
     patient.nokContact = req.body.patient.nokContact;
 
-    return patient.save().then(function() {
+    return patient.save(function(err, patient) {
+        if(err) {
+            console.log(err);
+        }
+
+        mysql.query(`CREATE TABLE IF NOT EXISTS ${patient._id} (
+            ax float(3,2),
+            ay float(3,2),
+            az float(3,2),
+            gx float(5,2),
+            gy float(5,2),
+            gz float(5,2),
+            time double(20,8),
+            date_uploaded date
+        )`, function(err) {
+            if(err) {
+                console.log(err);
+            }
+        });
+
         return res.json({msg: "patient added"});
     }).catch(next);
 })
@@ -44,6 +64,13 @@ router.route('/:patient_id')
         if(err) {
             console.log(err);
         }
+
+        mysql.query(`DROP TABLE IF EXISTS ${patientIdToDelete}`, function(err) {
+            if(err) {
+                console.log(err);
+            }
+        });
+
         return res.json({msg: 'Deleted '+patientIdToDelete});
     })
 });

@@ -10,11 +10,11 @@ var PatientSchema = new mongoose.Schema({
     zipCode: String,
     occupation: String,
     maritalStatus: String,
-    knownHealthIssues: [String],
+    knownHealthIssues: String,
     nokName: String,
     nokRelation: String,
     nokAddress: String,
-    nokContact: String
+    nokContact: String,
 }, {timestamps: true});
 
 PatientSchema.methods.toJSONFor = function(patient){

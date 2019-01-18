@@ -46,6 +46,7 @@ class CheckPatientsView extends Component {
         })
         .then((resp) => resp.json())
         .then((json) => console.log(json))
+        .then(() => this._retrievePatients()) //refresh data
     }
 
     componentDidMount() {
