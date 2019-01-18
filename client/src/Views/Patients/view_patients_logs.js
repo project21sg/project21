@@ -4,6 +4,13 @@ import {
     Col,
     Card
 } from 'antd';
+import {
+    VictoryPie,
+    VictoryAnimation,
+    VictoryLabel
+} from 'victory';
+
+import CircularPercentage from '../../Components/Charts/circular_percentage';
 
 class PatientLogsView extends Component {
     constructor(props) {
@@ -52,13 +59,33 @@ class PatientLogsView extends Component {
 
     render() {
         var s = this.state;
-        var p = s.patientData;
-        var ex = ['id'];
         return( 
             <Row>
-                <Col>
+                <Col span={4}>
                     <Card style={{margin: 5}}>
-                        {p && this.generatePatientDataView(p, ex)}
+                        <CircularPercentage percent={35} />
+                    </Card> 
+                </Col>
+                <Col span={4}>
+                    <Card style={{margin: 5}}>
+                        <VictoryPie
+                        data={[
+                            { x: "Cats", y: 35 },
+                            { x: "Dogs", y: 40 },
+                            { x: "Birds", y: 55 }
+                        ]}
+                        />
+                    </Card> 
+                </Col>
+                <Col span={4}>
+                    <Card style={{margin: 5}}>
+                        <VictoryPie
+                        data={[
+                            { x: "Cats", y: 35 },
+                            { x: "Dogs", y: 40 },
+                            { x: "Birds", y: 55 }
+                        ]}
+                        />
                     </Card> 
                 </Col>
             </Row>
