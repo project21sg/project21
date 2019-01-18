@@ -51,7 +51,7 @@ class PatientForm extends Component {
             } 
         };
 
-        fetch('http://localhost:9000/api/patients/', {
+        fetch('http://localhost:9000/api/patient/', {
             method: 'post',
             mode: 'cors',
             headers: {

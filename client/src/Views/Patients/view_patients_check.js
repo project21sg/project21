@@ -18,7 +18,7 @@ class CheckPatientsView extends Component {
     }
 
     _retrievePatients() {
-        fetch('http://localhost:9000/api/patients/all', {
+        fetch('http://localhost:9000/api/patient/all', {
             method: 'get',
             mode: 'cors',
             headers: {
@@ -30,8 +30,8 @@ class CheckPatientsView extends Component {
         .then((json) => {
             this.setState({
                 patients: json.data,
-                selectedPatientData: json.data[0],
-                selectedPatientId: json.data[0] ? json.data[0]._id : '',
+                selectedPatientData: json.data ? json.data[0] : null,
+                selectedPatientId: json.data ? json.data[0]._id : '',
             });
         });
     }
@@ -76,7 +76,12 @@ class CheckPatientsView extends Component {
                         { this.generatePatientsListView() }
                     </Col>
                     <Col span={20}>
-                        <PatientsSummaryView patientData={s.selectedPatientData}/>
+                        {
+                            s.selectedPatientData 
+                            ?  <PatientsSummaryView patientData={s.selectedPatientData}/>
+                            :  <span style={{fontWeight: 'bold', fontSize: 10}}>No patient data to show.</span>
+                            
+                        }
                     </Col>
                 </Row>
             </div>
