@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import PatientInformationView from './view_patients_information';
 import PatientLogsView from './view_patients_logs';
+import PatientTestView from './view_patients_test';
 
 class PatientsSummaryView extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class PatientsSummaryView extends Component {
                         <PatientLogsView patientData={s.patientData} />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Conduct Test" key="3">
-                        <PatientInformationView patientData={s.patientData} />
+                        <PatientTestView patientData={s.patientData} />
                     </Tabs.TabPane>
                 </Tabs>
             </div>
