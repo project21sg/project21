@@ -81,7 +81,6 @@ class CheckPatientsView extends Component {
                             s.selectedPatientData 
                             ?  <PatientsSummaryView patientData={s.selectedPatientData}/>
                             :  <span style={{fontWeight: 'bold', fontSize: 10}}>No patient data to show.</span>
-                            
                         }
                     </Col>
                 </Row>

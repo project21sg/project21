@@ -4,13 +4,8 @@ import {
     Col,
     Card
 } from 'antd';
-import {
-    VictoryPie,
-    VictoryAnimation,
-    VictoryLabel
-} from 'victory';
 
-import CircularPercentage from '../../Components/Charts/circular_percentage';
+import SingleCircularBar from '../../Components/Charts/circular_bar';
 
 class PatientLogsView extends Component {
     constructor(props) {
@@ -60,36 +55,57 @@ class PatientLogsView extends Component {
     render() {
         var s = this.state;
         return( 
+        <div>
             <Row>
                 <Col span={4}>
                     <Card style={{margin: 5}}>
-                        <CircularPercentage percent={35} />
+                        Overall Score
+                        <SingleCircularBar value={50} maxValue={100} suffix={'%'} thresholds={
+                            [
+                                {level: 30, label:'LOW', color: 'green'},
+                                {level: 60, label:'MEDIUM', color: 'orange'},
+                                {level: 100, label:'HIGH', color: 'red'},
+                            ]
+                        }/>
+                    </Card> 
+                </Col>
+                <Col span={6}>
+                    <Card style={{margin: 5}}>
+                        Gait Balance
+                        
                     </Card> 
                 </Col>
                 <Col span={4}>
                     <Card style={{margin: 5}}>
-                        <VictoryPie
-                        data={[
-                            { x: "Cats", y: 35 },
-                            { x: "Dogs", y: 40 },
-                            { x: "Birds", y: 55 }
-                        ]}
-                        />
-                    </Card> 
-                </Col>
-                <Col span={4}>
-                    <Card style={{margin: 5}}>
-                        <VictoryPie
-                        data={[
-                            { x: "Cats", y: 35 },
-                            { x: "Dogs", y: 40 },
-                            { x: "Birds", y: 55 }
-                        ]}
-                        />
+                        Timed Up and Go
+                        <SingleCircularBar value={10} maxValue={60} suffix={''} thresholds={
+                            [
+                                {level: 15, label:'SECONDS', color: 'green'},
+                                {level: 30, label:'SECONDS', color: 'orange'},
+                                {level: 45, label:'SECONDS', color: 'red'},
+                            ]
+                        }/>
                     </Card> 
                 </Col>
             </Row>
+            <Row>
+                <Col span={14}>
+                    <Card style={{margin: 5}}>
+                        Gait Data
+                        
+                    </Card> 
+                </Col>
+            </Row>
+            <Row>
+                <Col span={14}>
+                    <Card style={{margin: 5}}>
+                        Fall Risk Status/ Risk Factor Checklist
+                    </Card> 
+                </Col>
+            </Row>
+        </div>
         );
+    
     }
 }
 
