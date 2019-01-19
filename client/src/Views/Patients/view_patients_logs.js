@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     Row,
     Col,
-    Card
+    Card,
+    Select
 } from 'antd';
 
 import SingleCircularBar from '../../Components/Charts/circular_bar';
@@ -39,10 +40,11 @@ class PatientLogsView extends Component {
     constructor(props) {
         super();
         this.state = {
-            patientData: DUMMY_DATA,//props.patientData
+            patientData: DUMMY_DATA, //props.patientData.datasets,
             gaitData: DUMMY_GAIT_DATA,
             selectedDataIdx: 0
         }
+        this._handleDataSelect = this._handleDataSelect.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -59,7 +61,7 @@ class PatientLogsView extends Component {
     }
 
     unpackObjectToRowCol(object, exclusions=[]) {
-        return Object.keys(object).map((key) => {
+        return object && Object.keys(object).map((key) => {
             if(object[key] instanceof Object && !(object[key] instanceof Array)) {
                 return this.unpackObjectToRowCol(object[key]);
             } else if (!exclusions.includes(key)) {
@@ -77,7 +79,7 @@ class PatientLogsView extends Component {
                                 object[key] instanceof Array 
                                 ? object[key].map(x => x+', ') 
                                 : key === 'dateOfBirth' ? object[key].substring(0, 10) //very temp workaround
-                                : object[key].charAt(0).toLocaleUpperCase() + object[key].substring(1)
+                                : object[key]//.charAt(0).toLocaleUpperCase() + object[key].substring(1)
                             }
                         </Col>
                     </Row>               
@@ -87,13 +89,36 @@ class PatientLogsView extends Component {
         })
     }
 
+    _handleDataSelect(value) {
+        this.setState({
+            selectedDataIdx: value
+        })
+    }
+
     render() {
-        var data = this.state.patientData[this.state.selectedDataIdx];
+        var data = this.state.patientData[0];
         var gaitData = this.state.gaitData;
-        if(!data) { return <div></div>; }
+        if(!data) { return <div>Data seems to be missing!</div>; }
 
         return( 
         <div>
+            <Row>
+                <Select
+                key="dataSelect"
+                defaultValue={0}
+                onChange={this._handleDataSelect}
+                >
+                {this.props.patientData && this.props.patientData.datasets.filter(x => x !== null && x.name !== undefined ).map((x, i) =>
+                    <Select.Option
+                    key={x.name+' '+x.dateUploaded}
+                    value={i}
+                    >
+                        {x.name+' '+x.dateUploaded}
+                    </Select.Option>
+                )
+                }
+                </Select>
+            </Row>
             <Row>
                 <Col span={5}>
                     <Card style={{margin: 5, height: 250}}>
@@ -142,7 +167,7 @@ class PatientLogsView extends Component {
                 <Col span={20}>
                     <Card style={{margin: 5}}>
                         <span style={{fontWeight: 'bold', fontSize: 15}}>Fall Risk Status/ Risk Factor Checklist</span>
-                        { this._buildRiskFactorView(data.riskFactorData) }
+                        { this._buildRiskFactorView(this.props.patientData && this.props.patientData.datasets[this.state.selectedDataIdx], ['_id', 'dateUploaded', 'name']) }
                     </Card> 
                 </Col>
             </Row>

@@ -97,12 +97,10 @@ class DataForm extends Component {
                 body: JSON.stringify({ data: data, gaitData: gaitData})
             }).then(function(json) {
                 console.log(json);
-                console.log('post fetch')
+                this.setState({ waiting: false })
+                this.props.history.push('/patients');
             })
-
-            console.log('uploading...')
         })
-        .finally(() => this.setState({ waiting: false }))
     }
 
     _buildFormItemView(field)  {
