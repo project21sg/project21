@@ -15,6 +15,17 @@ var PatientSchema = new mongoose.Schema({
     nokRelation: String,
     nokAddress: String,
     nokContact: String,
+    datasets: [{
+      name: String,
+      dateUploaded: Date,
+      tugDuration: Number,
+      recentFalls: Number,
+      medications: Number,
+      psychological: Number,
+      cognitiveStatus: Number,
+      AMTS: Number,
+      riskFactor: Number
+    }]
 }, {timestamps: true});
 
 PatientSchema.methods.toJSONFor = function(patient){
@@ -33,7 +44,8 @@ PatientSchema.methods.toJSONFor = function(patient){
     nokName: this.nokName,
     nokRelation: this.nokRelation,
     nokAddress: this.nokAddress,
-    nokContact: this.nokContact
+    nokContact: this.nokContact,
+    datasets: this.datasets
   };
 };
 

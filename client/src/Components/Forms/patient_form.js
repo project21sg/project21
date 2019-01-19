@@ -16,6 +16,7 @@ class PatientForm extends Component {
         super();
         this.state = {
             fields: props.fields,
+            waiting: false
         };
     }
 
@@ -25,7 +26,6 @@ class PatientForm extends Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 this._uploadData(values);
-                message.success('Patient successfully added!');
                 this.props.history.push('/patients');
             }
         });
@@ -52,6 +52,7 @@ class PatientForm extends Component {
             } 
         };
 
+        this.setState({ waiting: true });
         fetch('http://localhost:9000/api/patient/', {
             method: 'post',
             mode: 'cors',
@@ -62,7 +63,9 @@ class PatientForm extends Component {
             body: JSON.stringify(data)
         }).then(function(json) {
             console.log(json);
-        })
+            //this.setState({ waiting: false }); //need to set loading outside
+            message.success('Patient successfully added!');
+        }).catch((err) => { console.log(err);  if(err.status !== 200) message.error('Error occured while adding patient!'); }  )
     }
 
     _buildFormItemView(field)  {

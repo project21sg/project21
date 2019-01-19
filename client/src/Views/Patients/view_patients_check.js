@@ -34,7 +34,7 @@ class CheckPatientsView extends Component {
                 selectedPatientData: json.data ? json.data[0] : null,
                 selectedPatientId: json.data[0] ? json.data[0]._id : '',
             });
-            console.log('received' + json);
+            console.log(json.data);
         });
     }
 
@@ -91,7 +91,7 @@ class CheckPatientsView extends Component {
                     </Col>
                     <Col span={20}>
                         {
-                            <PatientsSummaryView patientData={s.selectedPatientData}/>
+                            <PatientsSummaryView patientData={s.selectedPatientData}  history={this.props.history} />
                         }
                     </Col>
                 </Row>

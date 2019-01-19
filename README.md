@@ -62,6 +62,9 @@ To get the public-IP of the ECS service, go to clusters -> <cluster> -> <service
 
 You need to push the latest docker images for `client` and `server` to Docker hub, then pull the images on AWS.
 Make sure you build the images to the latest version first before pushing.
+Run `docker build . -t project21/webapp:app-client` to build the image in the client directory.
+Run `docker build . -t project21/webapp:app-server` to build the image in the server directory.
+
 Run `docker push project21/webapp:app-client` in the client directory.
 Run `docker push project21/webapp:app-server` in the server directory.
 

@@ -44,7 +44,8 @@ router.route('/')
             gy float(5,2),
             gz float(5,2),
             time double(20,8),
-            date_uploaded date
+            date_uploaded date,
+            dataset_name varchar(80)
         )`, function(err) {
             if(err) {
                 console.log(err);
@@ -75,6 +76,35 @@ router.route('/:patient_id')
     })
 });
 
+router.route('/:patient_id/data')
+.post(function(req,res,next) {
+    console.log(req.params);
+    var patientIdToUpdate = req.params.patient_id;
+    var data = req.body.data.data;
+    var gaitData = req.body.gaitData;
 
+    console.log(data);
+
+    Patient.updateOne({ _id: patientIdToUpdate },
+        {
+            $push: {"datasets": data}
+        }, 
+        function(err) {
+            if(err) {
+                console.log(err);
+            }
+            console.log('Patient data uploaded');
+        }
+    );
+
+    //console.log(gaitData);
+
+    gaitData.forEach(e => {
+        mysql.query(`INSERT INTO ${patientIdToUpdate} VALUES
+            ('${e[0]}', '${e[1]}','${e[2]}', '${e[3]}','${e[4]}', '${e[5]}','${e[6]}',  '${data['dateUploaded'].slice(0, 10)}', '${data['name']}')`)
+    });
+
+    console.log(mysql.query(`select count(*) from ${patientIdToUpdate}`, (err, res) => console.log(res)));
+})
 
 module.exports = router;

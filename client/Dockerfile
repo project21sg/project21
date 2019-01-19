@@ -1,6 +1,6 @@
 # configure node and setup working dir
 FROM node:8 as react-build
-COPY . /client/
+COPY . ./client/
 COPY package*.json /client/
 WORKDIR /client
 RUN yarn

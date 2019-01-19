@@ -90,6 +90,8 @@ class PatientLogsView extends Component {
     render() {
         var data = this.state.patientData[this.state.selectedDataIdx];
         var gaitData = this.state.gaitData;
+        if(!data) { return <div></div>; }
+
         return( 
         <div>
             <Row>

@@ -10,6 +10,7 @@ import{
     Select,
     DatePicker,
     Upload,
+    Spin,
     message
 } from 'antd';
 
@@ -17,9 +18,13 @@ class DataForm extends Component {
     constructor(props) {
         super();
         this.state = {
+            patientId: props.patientId,
             fields: props.fields,
-            fileList: []
+            fileList: [],
+            waiting: false,
         };
+
+        this._processFileAndUpload = this._processFileAndUpload.bind(this);
     }
 
     handleSubmit = (e) => {
@@ -28,44 +33,76 @@ class DataForm extends Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 this._uploadData(values);
-                message.success('Patient successfully added!');
-                this.props.history.push('/patients');
+                message.success('Data successfully added!');
+                //this.props.history.push('/patients');
             }
+        });
+    }
+
+    _processFileAndUpload(gaitDataFile) {
+        // Use reader.result
+        return new Promise((resolve, reject) => {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = [];
+                var buffer = [];
+                reader.result.split(',')
+                .forEach((x) => {
+                    if(x.length > 0) 
+                        buffer.push(x);
+                    if(buffer.length >= 7) {
+                        data.push(buffer);
+                        buffer = [];
+                    }
+                });
+                //console.log(data);
+                resolve(data);
+            };
+            reader.onerror = reject;
+            reader.readAsText(gaitDataFile);
         });
     }
     
     //TODO: refactor into data logic container component (parent)
     _uploadData(values) {
+        //console.log(values);
+        var dateUploaded = new Date();
         var data = {
-            patient: {
-                name: values.name,
-                nric: values.nric,
-                gender: values.gender, 
-                dateOfBirth: values['date of birth'],
-                contact: values.contact,
-                address: values.address, 
-                zipCode: values['zip code'],
-                occupation: values.occupation,
-                maritalStatus: values['marital status'],
-                knownHealthIssues: values['known health issues'],
-                nokName: values['next of kin name'],
-                nokRelation: values['relation to patient'],
-                nokAddress: values['next of kin address'],
-                nokContact: values['next of kin contact']
-            } 
+            data: {
+                name: values['dataset name'],
+                dateUploaded: dateUploaded,
+                tugDuration: values['timed up and go duration'],
+                recentFalls: values['recent falls'],
+                medications: values.medications,
+                psychological: values.psychological,
+                AMTS: values['cognitive status'],
+                riskFactor: this.state.fields[2].fields.map(f => values[f.label.toLowerCase()])
+                    .reduce((acc, v) => v !== undefined ? acc + v : acc, 0)
+            }
         };
+        //console.log(data);
+        //need to unpack the file values from csv into arrays
+        var gaitDataFile = values['gait data file'].file;
+        //console.log(gaitDataFile);
+        this.setState({ waiting: true });
+        this._processFileAndUpload(gaitDataFile)
+        .then((gaitData) => {
+            fetch(`http://localhost:9000/api/patient/${this.state.patientId}/data`, {
+                method: 'post',
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ data: data, gaitData: gaitData})
+            }).then(function(json) {
+                console.log(json);
+                console.log('post fetch')
+            })
 
-        fetch('http://localhost:9000/api/patient/', {
-            method: 'post',
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(function(json) {
-            console.log(json);
+            console.log('uploading...')
         })
+        .finally(() => this.setState({ waiting: false }))
     }
 
     _buildFormItemView(field)  {
@@ -73,11 +110,11 @@ class DataForm extends Component {
             case "radio":
                 return (
                     <Radio.Group>
-                    {field.options.map((o) => 
+                    {field.options.map((o, i) => 
                         <Radio 
-                        key={o.toLowerCase()}
-                        value={o.toLowerCase()}>
-                            {o}
+                        key={field.key+'_'+o.label}
+                        value={o.value}>
+                            {o.label}
                         </Radio>
                     )}
                     </Radio.Group>
@@ -92,11 +129,11 @@ class DataForm extends Component {
                 return(
                     <Select
                     key={field.label}>
-                    {field.options.map((o) => 
+                    {field.options.map((o, i) => 
                         <Select.Option 
-                        key={o.toLowerCase()}
-                        value={o.toLowerCase()}>
-                            {o}
+                        key={o.label}
+                        value={o.value}>
+                            {o.label}
                         </Select.Option>
                     )}
                     </Select>
@@ -174,6 +211,7 @@ class DataForm extends Component {
         }
 
         return <div>
+        {this.state.waiting ? <Spin /> : null}
         {this.state.fields.map((f) => 
             <Row>
                 <Col span={16} style={{padding: "10px"}} key={f.header}>
