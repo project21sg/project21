@@ -8,9 +8,8 @@ var connection = mysql.createConnection({
 
 connection.connect( function(err) {
   if(err) {
-    console.log("Can't connect to mysqldb:server; connecting to local mysql server...")
+    console.log("Can't connect to mysqldb:server; is the database active and online?")
   }
-  console.log("mysqldb Connected.")
 });
 
 module.exports = connection;
