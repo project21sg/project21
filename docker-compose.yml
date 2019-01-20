@@ -50,7 +50,13 @@ services:
     networks:
         - webappnetwork
     environment:
-        MYSQL_ROOT_PASSWORD: example
+        MYSQL_HOST: localhost
+        MYSQL_USER: rootie
+        MYSQL_PASSWORD: rootie
+        MYSQL_ROOT_PASSWORD: rootie
+        MYSQL_DATABASE: p21_main
+
+
 
 networks:
     webappnetwork:

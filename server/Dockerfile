@@ -7,8 +7,8 @@ COPY package*.json /server/
 # Set the working directory to /server
 WORKDIR /server
 # install dependencies
-RUN yarn
+RUN npm install
 # Make port 9000 available to the world outside this container
 EXPOSE 9000
 # Run the app when the container launches
-CMD ["yarn", "start"]
+CMD ["node", "app.js"]
