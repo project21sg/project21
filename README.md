@@ -54,6 +54,8 @@ $ ecs-cli configure --region ap-southeast-1 --cluster default --default-launch-t
 
 ```
 $ ecs-cli compose --file docker-compose.ecs.yml --project-name project21 service up --create-log-groups --cluster-config p21-default
+OR
+$ ecs-cli compose --file docker-compose.ecs.yml --project-name project21 service up --cluster-config p21-default
 ```
 
 To get the public-IP of the ECS service, go to clusters -> <cluster> -> <service> -> task -> <running task>.

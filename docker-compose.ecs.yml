@@ -60,7 +60,6 @@ services:
     #networks:
     #    - webappnetwork
     environment:
-      MYSQL_HOST: localhost
       MYSQL_USER: rootie
       MYSQL_PASSWORD: rootie
       MYSQL_ROOT_PASSWORD: rootie
