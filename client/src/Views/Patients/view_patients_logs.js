@@ -36,6 +36,34 @@ const DUMMY_GAIT_DATA = [
     [0.98, -0.08, 0.08,	-0.56, -1.75, -1.13, 0.113255],
 ]
 
+//need to fetch labels from central source of risk factor data
+var FALL_RISK_FIELDS = {
+    recentFalls: [
+        'None in the last 12 months' ,
+        '1 or more between 3 and 12 months ago', 
+        '1 or more in last 3 months',
+        '1 or more in last 3 months whilst inpatient/resident',
+    ],
+    medications: [
+        'Not taking any of these',
+        'Taking one', 
+        'Taking two', 
+        'Taking more than two', 
+    ],
+    psychological:[
+        'Does not appear to have any of these',
+        'Mildly affected by one or more',
+        'Moderately affected by one or more',
+        'Appears severly affected by one or more',
+    ],
+    AMTS:[
+        'AMTS 9/10 or 10 or intact',
+        'AMTS 7/8, mildly impaired',
+        'AMTS 5/6, moderately impaired',
+        'AMTS 4 or less, severly impaired',
+    ],
+}
+
 class PatientLogsView extends Component {
     constructor(props) {
         super();
@@ -76,10 +104,9 @@ class PatientLogsView extends Component {
                         </Col>
                         <Col span={15}>
                             {
-                                object[key] instanceof Array 
-                                ? object[key].map(x => x+', ') 
-                                : key === 'dateOfBirth' ? object[key].substring(0, 10) //very temp workaround
-                                : object[key]//.charAt(0).toLocaleUpperCase() + object[key].substring(1)
+                                key === 'riskFactor' ? object[key]
+                                : key === 'tugDuration' ? object[key]+' seconds'
+                                : FALL_RISK_FIELDS[key][object[key] - 1]
                             }
                         </Col>
                     </Row>               
@@ -104,6 +131,7 @@ class PatientLogsView extends Component {
         <div>
             <Row>
                 <Select
+                block
                 key="dataSelect"
                 defaultValue={0}
                 onChange={this._handleDataSelect}
@@ -167,7 +195,7 @@ class PatientLogsView extends Component {
                 <Col span={20}>
                     <Card style={{margin: 5}}>
                         <span style={{fontWeight: 'bold', fontSize: 15}}>Fall Risk Status/ Risk Factor Checklist</span>
-                        { this._buildRiskFactorView(this.props.patientData && this.props.patientData.datasets[this.state.selectedDataIdx], ['_id', 'dateUploaded', 'name']) }
+                        { this.props.patientData.datasets.length > 0 && this._buildRiskFactorView(this.props.patientData.datasets[this.state.selectedDataIdx], ['_id', 'dateUploaded', 'name']) }
                     </Card> 
                 </Col>
             </Row>

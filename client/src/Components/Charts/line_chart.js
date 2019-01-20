@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     VictoryChart,
     VictoryLine,
+    VictoryLegend,
 } from 'victory';
 
 class LineChart extends Component {
@@ -50,6 +51,14 @@ class LineChart extends Component {
             maxDomain={{y: 5.0}}
             >
                 { this._buildLines(s.data) }
+                <VictoryLegend 
+                title="Legend"
+                x={300} y={10}
+                data={[
+                    { name: "Gyroscope", symbol: { fill: "lightpink" } },
+                    { name: "Accelerometer", symbol: { fill: "lightblue" } },
+                  ]}
+                />
             </VictoryChart>
         );
     }
