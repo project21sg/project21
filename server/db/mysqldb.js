@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'mysql',
+  host     : 'localhost',
   user     : 'root',
   password : 'rootie',
   database : 'p21_main'
@@ -8,19 +8,37 @@ var connection = mysql.createConnection({
 
 connection.connect( function(err) {
   if(err) {
-    console.log("Can't connect to mysqldb:server; connecting to local mysqldb");
+    console.log("Can't connect to mysqldb:server; retrying in 2 minutes");
     console.log(err)
+    //cannot resuse old connection instances
     var connection = mysql.createConnection({
       host     : 'localhost',
       user     : 'root',
-      password : '',
+      password : 'rootie',
       database : 'p21_main'
     });
-    connection.connect(function(err) {
-      console.log("Can't connect to mysqldb:server; check mysql config and connections");
-      console.log(err);
-    })
+    
+    setTimeout(() => connection.connect( function(err) {
+      console.log('retried')
+      if(err) {
+        console.log(err)
+        var connection = mysql.createConnection({
+          host     : 'mysql',
+          user     : 'root',
+          password : 'rootie',
+          database : 'p21_main'
+        });
+        connection.connect(function(err) {
+          if(err) {
+            console.log("Can't connect to local docker mysqldb:server; check mysql config and connections");
+            console.log(err);
+          }
+        })
+      }
+    }), 72000)
   }
-});
+})
+
+
 
 module.exports = connection;
