@@ -166,7 +166,7 @@ class PatientLogsView extends Component {
                         <HoriLabeledBar data={[
                             {value: data.speed, label: 'Speed'},
                             {value: data.symmetry, label: 'Symmetry'},
-                            {value: data.stopRatio, label: 'Stop Ratio'},
+                            {value: data.stopRatio, label: 'Step Ratio'},
                         ]}/>
                     </Card> 
                 </Col>
