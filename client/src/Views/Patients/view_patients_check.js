@@ -19,7 +19,7 @@ class CheckPatientsView extends Component {
 
     /* TODO: should refactor data logic into a container component */
     _retrievePatients() {
-        fetch('http://localhost:9000/api/patient/all', {
+        fetch(`http://${window.location.hostname}:9000/api/patient/all`, {
             method: 'get',
             mode: 'cors',
             headers: {
@@ -40,7 +40,7 @@ class CheckPatientsView extends Component {
 
     _deletePatient(id) {
         console.log('deleting '+id)
-        fetch(`http://localhost:9000/api/patient/${id}`, {
+        fetch(`http://${window.location.hostname}:9000/api/patient/${id}`, {
             method: 'delete',
             mode: 'cors',
         })

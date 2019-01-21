@@ -53,7 +53,7 @@ class PatientForm extends Component {
         };
 
         this.setState({ waiting: true });
-        fetch('http://localhost:9000/api/patient/', {
+        fetch(`http://${window.location.hostname}:9000/api/patient/`, {
             method: 'post',
             mode: 'cors',
             headers: {

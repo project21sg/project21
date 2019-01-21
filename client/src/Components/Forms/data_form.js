@@ -87,7 +87,7 @@ class DataForm extends Component {
         this.setState({ waiting: true });
         this._processFileAndUpload(gaitDataFile)
         .then((gaitData) => {
-            fetch(`http://localhost:9000/api/patient/${this.state.patientId}/data`, {
+            fetch(`http://${window.location.hostname}:9000/api/patient/${this.state.patientId}/data`, {
                 method: 'post',
                 mode: 'cors',
                 headers: {
