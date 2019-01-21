@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {
-    VictoryChart,
-    VictoryBar,
-    VictoryLabel,
-} from 'victory';
+    BarChart,
+    CartesianGrid,
+    XAxis,
+    YAxis,
+    Bar,
+    LabelList
+} from 'recharts';
 
 class HoriLabeledBar extends Component {
     constructor(props) {
@@ -23,24 +26,21 @@ class HoriLabeledBar extends Component {
 
     render() {
         var s = this.state;
+        var data = s.data.map((e) => {
+            return {
+                name: e.label, 
+                value: e.value
+            };
+        })
         return(         
-            <VictoryChart
-            height={200}
-            padding={{ left: 100 }}
-            domainPadding={{ y: 50 }}
-            >
-                <VictoryBar horizontal
-                    height={200}
-                    barWidth={20}
-                    data={ s.data.map((x) => {return {x: x.label, y: x.value}})  }
-                    labels={ (d) => d.y }
-                    labelComponent={<VictoryLabel dx={-40}/>}
-                    style={{
-                        data: { fill: "green" },
-                        labels: {fontSize: 20, fill: 'white'}
-                    }}
-                />
-            </VictoryChart>
+            <BarChart layout='horizontal' width={350} height={200} data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <YAxis dataKey="value" />
+                <XAxis dataKey="name"/>
+                <Bar barSize={30} layout="horizontal" dataKey="value" fill="green">
+                <LabelList dataKey="value" position="top" /> 
+                </Bar>
+            </BarChart>
         );
     }
 }
