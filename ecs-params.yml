@@ -5,6 +5,23 @@ task_definition:
   task_size:
     mem_limit: 0.5GB
     cpu_limit: 256
+  # containerDefinitions:
+  #   - name: app-client
+  #     image: project21/webapp:app-client
+  #     portMapping: 80
+  #     essential: true
+  #   - name: app-server
+  #     image: project21/webapp:app-server
+  #     portMapping: 900
+  #     essential: true    
+  #   - name: mongodb
+  #     image: mongo
+  #     portMapping: 27017
+  #     essential: true    
+  #   - name: mysql
+  #     image: mysql
+  #     portMapping: 3306
+  #     essential: true
 run_params:
   network_configuration:
     awsvpc_configuration:
