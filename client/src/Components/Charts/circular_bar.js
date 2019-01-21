@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {
-    VictoryPie,
-    VictoryAnimation,
-    VictoryLabel
-} from 'victory';
+    PieChart,
+    Pie,
+    Cell,
+    Label,
+} from 'recharts';
 
 class CircularBar extends Component {
     constructor(props) {
@@ -30,56 +31,32 @@ class CircularBar extends Component {
         var maxValue = s.maxValue;
         var value  = s.value ? s.value : 0;
         var suffix = s.suffix;
-        var labelText = s.thresholds.find((e) => value  < e.level)['label'];
+        var threshold = s.thresholds.find((e) => value  < e.level);
+        var labelText = threshold['label'];
+        var cellColor = threshold['color'];
 
         var visData = [
-            {x: 1, y: value },
-            {x: 0, y: maxValue - value }
+            {name: 1, value: value },
+            {name: 0, value: maxValue - value }
         ];
 
         return(         
-            <svg viewBox="0 0 400 400">
-                <VictoryPie
-                standalone={false}
-                width={400}
-                height={400}
-                innerRadius={125}
-                cornerRadius={25}
-                labels={() => null}
+            <PieChart width={200} height={200} >
+                <Pie
                 data={visData}
-                style={{
-                    data: {
-                        fill: (d) => {
-                            var threshold = s.thresholds.find((e) => d.y < e.level);
-                            const color = threshold ? threshold['color'] : "transparent";
-                            return d.x === 1 ? color : "transparent";
-                        }
-                    }
-                }}
-                />
-                <VictoryAnimation
-                data={value}
+                cx={"40%"} 
+                cy={"50%"} 
+                innerRadius={"50%"}
+                outerRadius={"65%"} 
+                fill="#8884d8"
+                paddingAngle={0}
                 >
-                {(value) => {
-                    return(
-                        <VictoryLabel
-                        textAnchor='middle'
-                        x="50%" y="45%"
-                        verticalAnchor='middle'
-                        text={`${value}`+suffix}
-                        style={{fontSize: '100'}}
-                        />  
-                    )
-                }}
-                </VictoryAnimation>
-                <VictoryLabel
-                textAnchor='middle'
-                x="50%" y="65%"
-                verticalAnchor='middle'
-                text={labelText}
-                style={{fontSize: '50'}}
-                />  
-            </svg>
+                    <Cell fill={cellColor}/>
+                    <Cell fill={'transparent'}/>
+                    <Label position='center'>{value+suffix+` ${labelText}`}</Label>
+                    {/* <Label position='outsideCenter'>{labelText}</Label> */}
+                </Pie>
+            </PieChart>
         );
     }
 }
