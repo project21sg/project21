@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-
 import DataForm from '../../Components/Forms/data_form';
 
 // TODO: refactor into to-be-imported .json file

@@ -43,6 +43,7 @@ class CircularBar extends Component {
         return(         
             <PieChart width={200} height={200} >
                 <Pie
+                dataKey={labelText}
                 data={visData}
                 cx={"40%"} 
                 cy={"50%"} 

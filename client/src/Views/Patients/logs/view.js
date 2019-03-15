@@ -6,38 +6,12 @@ import {
     Select
 } from 'antd';
 
-import SingleCircularBar from '../../Components/Charts/circular_bar';
-import HoriLabeledBar from '../../Components/Charts/hori_labeled_bar';
-import LineChart from '../../Components/Charts/line_chart';
-
-const DUMMY_DATA = [
-    {
-        fallRiskPercent: 4,
-        speed: 39,
-        symmetry: 43,
-        stopRatio: 39,
-        tugDuration: 10,
-        riskFactorData: {
-            recentFalls: "None in the last 12 months",
-            medication: "Taking 1",
-            psychological: "Does not appear to be affected",
-            AMTS: "9, 10",
-            riskFactorChecklist: "1/8",
-        }
-    }
-]
-
-const DUMMY_GAIT_DATA = [
-    [0.98, -0.09, 0.07,	-3.01, -0.83, -1.53, 0],
-    [0.97, -0.1	, 0.08, -1.34, -1.01, -1.76, 0.031051],
-    [0.98, -0.11, 0.07,	-0.62, -1.39, -1.53, 0.051635],
-    [0.97, -0.1	, 0.07, 0.85, -1.79, -1.5,  0.07219],
-    [0.98, -0.08, 0.08,	1.09, -1.59, -1.26, 0.092733],
-    [0.98, -0.08, 0.08,	-0.56, -1.75, -1.13, 0.113255],
-]
+import SingleCircularBar from '../../../Components/Charts/circular_bar';
+import HoriLabeledBar from '../../../Components/Charts/hori_labeled_bar';
+import LineChart from '../../../Components/Charts/line_chart';
 
 //need to fetch labels from central source of risk factor data
-var FALL_RISK_FIELDS = {
+const FALL_RISK_FIELDS = {
     recentFalls: [
         'None in the last 12 months' ,
         '1 or more between 3 and 12 months ago', 
@@ -64,22 +38,24 @@ var FALL_RISK_FIELDS = {
     ],
 }
 
+//need to fetch labels from central source of risk factor data
 class PatientLogsView extends Component {
     constructor(props) {
         super();
         this.state = {
-            patientData: DUMMY_DATA, //props.patientData.datasets,
-            gaitData: DUMMY_GAIT_DATA,
-            selectedDataIdx: 0
+            patientData: props.patientData,
+            gaitData: props.gaitData,
+            dataset: props.dataset,
         }
-        this._handleDataSelect = this._handleDataSelect.bind(this);
+        this.handleDataSelect = props.handleDataSelect;
     }
 
     componentDidUpdate(prevProps) {
         if(prevProps.patientData !== this.props.patientData) {
             this.setState({
-                patientData : DUMMY_DATA,// this.props.patientData
-                gaitData: DUMMY_GAIT_DATA
+                patientData:  this.props.patientData,
+                gaitData: this.props.gaitData,
+                dataset: this.props.dataset,
             })
         }
     }
@@ -93,7 +69,7 @@ class PatientLogsView extends Component {
             if(object[key] instanceof Object && !(object[key] instanceof Array)) {
                 return this.unpackObjectToRowCol(object[key]);
             } else if (!exclusions.includes(key)) {
-                var label = key.charAt(0).toLocaleUpperCase() + key.substring(1); //TODO: kinda unnecessary extra logic...
+                let label = key.charAt(0).toLocaleUpperCase() + key.substring(1); //TODO: kinda unnecessary extra logic...
                 label = label.replace(/([A-Z])/g, ' $1').trim();
 
                 return (
@@ -116,16 +92,11 @@ class PatientLogsView extends Component {
         })
     }
 
-    _handleDataSelect(value) {
-        this.setState({
-            selectedDataIdx: value
-        })
-    }
-
     render() {
-        var data = this.state.patientData[0];
-        var gaitData = this.state.gaitData;
-        if(!data) { return <div>Data seems to be missing!</div>; }
+        let patientData = this.state.patientData;
+        let gaitData = this.state.gaitData;
+        let dataset = this.state.dataset;
+        if(!patientData) { return <div>Data seems to be missing!</div>; }
 
         return( 
         <div>
@@ -136,7 +107,7 @@ class PatientLogsView extends Component {
                 defaultValue={0}
                 onChange={this._handleDataSelect}
                 >
-                {this.props.patientData && this.props.patientData.datasets.filter(x => x !== null && x.name !== undefined ).map((x, i) =>
+                {patientData && patientData.filter(x => x !== null && x.name !== undefined ).map((x, i) =>
                     <Select.Option
                     key={x.name+' '+x.dateUploaded}
                     value={i}
@@ -151,7 +122,7 @@ class PatientLogsView extends Component {
                 <Col span={5}>
                     <Card style={{margin: 5, height: 250}}>
                         <span style={{fontWeight: 'bold', fontSize: 15}}>Overall Score</span>
-                        <SingleCircularBar value={data.fallRiskPercent} maxValue={100} suffix={'%'} thresholds={
+                        <SingleCircularBar value={patientData.fallRiskPercent} maxValue={100} suffix={'%'} thresholds={
                             [
                                 {level: 30, label:'LOW', color: 'green'},
                                 {level: 60, label:'MEDIUM', color: 'orange'},
@@ -164,16 +135,16 @@ class PatientLogsView extends Component {
                     <Card style={{margin: 5, height: 250}}>
                         <span style={{fontWeight: 'bold', fontSize: 15}}>Gait Balance</span>
                         <HoriLabeledBar data={[
-                            {value: data.speed, label: 'Speed'},
-                            {value: data.symmetry, label: 'Symmetry'},
-                            {value: data.stopRatio, label: 'Step Ratio'},
+                            {value: patientData.speed, label: 'Speed'},
+                            {value: patientData.symmetry, label: 'Symmetry'},
+                            {value: patientData.stepRatio, label: 'Step Ratio'},
                         ]}/>
                     </Card> 
                 </Col>
                 <Col span={5}>
                     <Card style={{margin: 5, height: 250}}>
                         <span style={{fontWeight: 'bold', fontSize: 15}}>Timed Up and Go</span>
-                        <SingleCircularBar value={data.tugDuration} maxValue={60} suffix={''} thresholds={
+                        <SingleCircularBar value={patientData.tugDuration} maxValue={60} suffix={''} thresholds={
                             [
                                 {level: 15, label:'SECONDS', color: 'green'},
                                 {level: 30, label:'SECONDS', color: 'orange'},
@@ -195,7 +166,7 @@ class PatientLogsView extends Component {
                 <Col span={20}>
                     <Card style={{margin: 5}}>
                         <span style={{fontWeight: 'bold', fontSize: 15}}>Fall Risk Status/ Risk Factor Checklist</span>
-                        { this.props.patientData.datasets.length > 0 && this._buildRiskFactorView(this.props.patientData.datasets[this.state.selectedDataIdx], ['_id', 'dateUploaded', 'name']) }
+                        { dataset && this._buildRiskFactorView(dataset, ['_id', 'dateUploaded', 'name']) }
                     </Card> 
                 </Col>
             </Row>

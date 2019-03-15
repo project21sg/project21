@@ -3,7 +3,7 @@ import {
     Tabs
 } from 'antd';
 import PatientInformationView from './view_patients_information';
-import PatientLogsView from './view_patients_logs';
+import { PatientLogsContainer } from './logs';
 import PatientTestView from './view_patients_test';
 
 class PatientsSummaryView extends Component {
@@ -39,7 +39,7 @@ class PatientsSummaryView extends Component {
                         <PatientInformationView patientData={s.patientData} />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Past Reports/Logs" key="2">
-                        <PatientLogsView patientData={s.patientData} />
+                        <PatientLogsContainer patientData={s.patientData} />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Conduct Test" key="3">
                         <PatientTestView patientId={s.patientData && s.patientData._id}  history={this.props.history} />
