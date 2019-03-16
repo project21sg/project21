@@ -60,7 +60,7 @@ class PatientLogsView extends Component {
     fields.riskFactor = object.riskFactor;
 
     Object.keys(FALL_RISK_FIELDS).map(
-      key => (fields[key] = FALL_RISK_FIELDS[key][object[key]])
+      key => (fields[key] = FALL_RISK_FIELDS[key][object[key] - 1])
     );
 
     return Object.keys(fields).map(key => {
