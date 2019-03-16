@@ -1,65 +1,98 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
-    PieChart,
-    Pie,
-    Cell,
-    Label,
-} from 'recharts';
+  PolarAngleAxis,
+  RadialBar,
+  ResponsiveContainer,
+  RadialBarChart
+} from "recharts";
 
 class CircularBar extends Component {
-    constructor(props) {
-        super();
-        this.state = {
-            value: props.value,
-            maxValue: props.maxValue,
-            suffix: props.suffix,
-            thresholds: props.thresholds.sort((e, n) => e.level - n.level),
-        }
+  constructor(props) {
+    super();
+    this.state = {
+      value: props.value,
+      maxValue: props.maxValue,
+      suffix: props.suffix,
+      thresholds: props.thresholds.sort((e, n) => e.level - n.level),
+      height: props.height,
+      width: props.width
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.value !== this.props.value &&
+      this.props.value instanceof Number
+    ) {
+      this.setState({
+        value: this.props.value,
+        thresholds: this.props.thresholds.sort((e, n) => e.level - n.level)
+      });
     }
+  }
 
-    componentDidUpdate(prevProps) {
-        if(prevProps.value !== this.props.value && this.props.value instanceof Number) {
-            this.setState({
-                value  : this.props.value,
-                thresholds: this.props.thresholds.sort((e, n) => e.level - n.level),
-            })
-        }
-    }
+  render() {
+    const s = this.state;
+    const maxValue = s.maxValue;
+    const value = s.value ? s.value : 0;
+    const suffix = s.suffix;
+    const threshold = s.thresholds.find(e => value < e.level);
+    const labelText = threshold["label"];
+    const cellColor = threshold["color"];
 
-    render() {
-        var s = this.state;
-        var maxValue = s.maxValue;
-        var value  = s.value ? s.value : 0;
-        var suffix = s.suffix;
-        var threshold = s.thresholds.find((e) => value  < e.level);
-        var labelText = threshold['label'];
-        var cellColor = threshold['color'];
+    const height = s.height;
+    const width = s.width;
 
-        var visData = [
-            {name: 1, value: value },
-            {name: 0, value: maxValue - value }
-        ];
+    const visData = [{ name: 1, value: value }];
 
-        return(         
-            <PieChart width={200} height={200} >
-                <Pie
-                dataKey={labelText}
-                data={visData}
-                cx={"40%"} 
-                cy={"50%"} 
-                innerRadius={"50%"}
-                outerRadius={"65%"} 
-                fill="#8884d8"
-                paddingAngle={0}
-                >
-                    <Cell fill={cellColor}/>
-                    <Cell fill={'transparent'}/>
-                    <Label position='center'>{value+suffix+` ${labelText}`}</Label>
-                    {/* <Label position='outsideCenter'>{labelText}</Label> */}
-                </Pie>
-            </PieChart>
-        );
-    }
+    return (
+      <ResponsiveContainer width={width} height={height}>
+        <RadialBarChart
+          cx={"50%"}
+          cy={"50%"}
+          innerRadius={"80%"}
+          outerRadius={"90%"}
+          barSize={8}
+          data={visData}
+          startAngle={90}
+          endAngle={-270}
+        >
+          <PolarAngleAxis
+            type="number"
+            domain={[0, maxValue]}
+            angleAxisId={0}
+            tick={false}
+          />
+          <RadialBar
+            background
+            clockWise
+            dataKey="value"
+            cornerRadius={"50%"}
+            fill={cellColor}
+          />
+          <text
+            x={"50%"}
+            y={"50%"}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className="progress-label"
+            fontSize={40}
+          >
+            {value + suffix}
+          </text>
+          <text
+            x={"50%"}
+            y={"70%"}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className="progress-label"
+          >
+            {labelText}
+          </text>
+        </RadialBarChart>
+      </ResponsiveContainer>
+    );
+  }
 }
 //newProps.y < 30 ? 'LOW' : newProps.y < 60 ? 'MEDIUM' : 'HIGH'
 export default CircularBar;
