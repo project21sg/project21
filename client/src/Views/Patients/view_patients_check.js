@@ -35,7 +35,8 @@ class CheckPatientsView extends Component {
                 selectedPatientId: json.data[0] ? json.data[0]._id : '',
             });
             console.log(json.data);
-        });
+        })
+        .catch(err => console.log(err));
     }
 
     _deletePatient(id) {
@@ -47,6 +48,7 @@ class CheckPatientsView extends Component {
         .then((resp) => resp.json())
         .then((json) => console.log(json))
         .then(() => this._retrievePatients()) //refresh data
+        .catch(err => console.log(err))
     }
 
     componentDidMount() {
