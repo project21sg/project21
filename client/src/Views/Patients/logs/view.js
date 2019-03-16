@@ -93,9 +93,16 @@ class PatientLogsView extends Component {
     }
 
     render() {
-        let patientData = this.state.patientData;
-        let gaitData = this.state.gaitData;
-        let dataset = this.state.dataset;
+        const patientData = this.state.patientData;
+        const gaitData = this.state.gaitData;
+        const dataset = this.state.dataset;
+
+        const gaitBalanceData = [
+            {value: patientData.speed, label: 'Speed'},
+            {value: patientData.symmetry, label: 'Symmetry'},
+            {value: patientData.stepRatio, label: 'Step Ratio'},
+        ]
+
         if(!patientData) { return <div>Data seems to be missing!</div>; }
 
         return( 
@@ -134,11 +141,10 @@ class PatientLogsView extends Component {
                 <Col span={10}>
                     <Card style={{margin: 5, height: 250}}>
                         <span style={{fontWeight: 'bold', fontSize: 15}}>Gait Balance</span>
-                        <HoriLabeledBar data={[
-                            {value: patientData.speed, label: 'Speed'},
-                            {value: patientData.symmetry, label: 'Symmetry'},
-                            {value: patientData.stepRatio, label: 'Step Ratio'},
-                        ]}/>
+                        <HoriLabeledBar 
+                        height={200}
+                        width={'99%'}
+                        data={gaitBalanceData}/>
                     </Card> 
                 </Col>
                 <Col span={5}>
@@ -158,7 +164,10 @@ class PatientLogsView extends Component {
                 <Col span={20}>
                     <Card style={{margin: 5}}>
                         <span style={{fontWeight: 'bold', fontSize: 15}}>Gait Data</span>
-                        <LineChart data={gaitData} />
+                        <LineChart 
+                        height={500}
+                        width={'99%'}
+                        data={gaitData} />
                     </Card> 
                 </Col>
             </Row>
