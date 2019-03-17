@@ -55,6 +55,71 @@ class PatientLogsView extends Component {
     }
   }
 
+  _buildOverallScoreComponent(value, thresholds) {
+    return (
+      <Card style={{ margin: 5, height: 250 }}>
+        <span style={{ fontWeight: "bold", fontSize: 15 }}>Overall Score</span>
+        <SingleCircularBar
+          height={200}
+          width={"99%"}
+          value={value}
+          maxValue={100}
+          suffix={"%"}
+          thresholds={thresholds}
+        />
+      </Card>
+    );
+  }
+
+  _buildBalanceDataComponent(data) {
+    return (
+      <Card style={{ margin: 5, height: 250 }}>
+        <span style={{ fontWeight: "bold", fontSize: 15 }}>Gait Balance</span>
+        <HoriLabeledBar height={200} width={"99%"} data={data} />
+      </Card>
+    );
+  }
+
+  _buildTUGComponent(value, thresholds) {
+    return (
+      <Card style={{ margin: 5, height: 250 }}>
+        <span style={{ fontWeight: "bold", fontSize: 15 }}>
+          Timed Up and Go
+        </span>
+        <SingleCircularBar
+          height={200}
+          width={"99%"}
+          value={value}
+          maxValue={60}
+          suffix={""}
+          thresholds={thresholds}
+        />
+      </Card>
+    );
+  }
+
+  _buildGaitDataGraphComponent(data) {
+    return (
+      <Col span={20}>
+        <Card style={{ margin: 5 }}>
+          <span style={{ fontWeight: "bold", fontSize: 15 }}>Gait Data</span>
+          <LineChart height={500} width={"99%"} data={data} />
+        </Card>
+      </Col>
+    );
+  }
+
+  _buildRiskFactorDataComponent(data) {
+    return (
+      <Card style={{ margin: 5 }}>
+        <span style={{ fontWeight: "bold", fontSize: 15 }}>
+          Fall Risk Status/ Risk Factor Checklist
+        </span>
+        {this._buildRiskFactorView(data, [])}
+      </Card>
+    );
+  }
+
   _buildRiskFactorView(object, ex) {
     const fields = object;
     fields.riskFactor = object.riskFactor;
@@ -122,69 +187,24 @@ class PatientLogsView extends Component {
         </Row>
         <Row>
           <Col span={5}>
-            <Card style={{ margin: 5, height: 250 }}>
-              <span style={{ fontWeight: "bold", fontSize: 15 }}>
-                Overall Score
-              </span>
-              <SingleCircularBar
-                height={200}
-                width={"99%"}
-                value={patientData.fallRiskPercent}
-                maxValue={100}
-                suffix={"%"}
-                thresholds={overallScoreThresholds}
-              />
-            </Card>
+            {this._buildOverallScoreComponent(
+              patientData.fallRiskPercent,
+              overallScoreThresholds
+            )}
           </Col>
           <Col span={10}>
-            <Card style={{ margin: 5, height: 250 }}>
-              <span style={{ fontWeight: "bold", fontSize: 15 }}>
-                Gait Balance
-              </span>
-              <HoriLabeledBar
-                height={200}
-                width={"99%"}
-                data={gaitBalanceData}
-              />
-            </Card>
+            {this._buildBalanceDataComponent(gaitBalanceData)}
           </Col>
           <Col span={5}>
-            <Card style={{ margin: 5, height: 250 }}>
-              <span style={{ fontWeight: "bold", fontSize: 15 }}>
-                Timed Up and Go
-              </span>
-              <SingleCircularBar
-                height={200}
-                width={"99%"}
-                value={patientData.tugDuration}
-                maxValue={60}
-                suffix={""}
-                thresholds={tugThresholds}
-              />
-            </Card>
+            {this._buildTUGComponent(patientData.tugDuration, tugThresholds)}
           </Col>
         </Row>
         <Row>
           <Col span={20}>
-            <Card style={{ margin: 5 }}>
-              <span style={{ fontWeight: "bold", fontSize: 15 }}>
-                Gait Data
-              </span>
-              <LineChart height={500} width={"99%"} data={gaitData} />
-            </Card>
+            {this._buildRiskFactorDataComponent(patientData.riskFactorData)}
           </Col>
         </Row>
-        <Row>
-          <Col span={20}>
-            <Card style={{ margin: 5 }}>
-              <span style={{ fontWeight: "bold", fontSize: 15 }}>
-                Fall Risk Status/ Risk Factor Checklist
-              </span>
-              {patientData.riskFactorData &&
-                this._buildRiskFactorView(patientData.riskFactorData, [])}
-            </Card>
-          </Col>
-        </Row>
+        <Row>{this._buildGaitDataGraphComponent(gaitData)}</Row>
       </div>
     );
   }
