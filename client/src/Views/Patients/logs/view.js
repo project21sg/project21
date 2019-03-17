@@ -172,18 +172,20 @@ class PatientLogsView extends Component {
     return (
       <div>
         <Row>
-          <Select
-            block
-            key="dataSelect"
-            defaultValue={0}
-            onChange={this._handleDataSelect}
-          >
-            {selectOptions.map((x, i) => (
-              <Select.Option key={x} value={i}>
-                {x}
-              </Select.Option>
-            ))}
-          </Select>
+          <Col>
+            <Select
+              block
+              key="dataSelect"
+              defaultValue={0}
+              onChange={this._handleDataSelect}
+            >
+              {selectOptions.map((x, i) => (
+                <Select.Option key={x} value={i}>
+                  {x}
+                </Select.Option>
+              ))}
+            </Select>
+          </Col>
         </Row>
         <Row>
           <Col span={5}>
