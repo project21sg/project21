@@ -5,6 +5,7 @@ import { NavLink, Route, BrowserRouter } from "react-router-dom";
 import logoPath from "./res/img/logo.png";
 //import styles from './index.css'; //TODO: css modules not working for some reason
 
+import { MainContainer } from "./Views/Main";
 import CheckPatientsView from "./Views/Patients/view_patients_check";
 import AddPatientsView from "./Views/Patients/view_patients_add";
 //import UploadView from './Views/Upload/view_upload';
@@ -41,6 +42,7 @@ class App extends Component {
           </Layout.Sider>
           <Layout>
             <Layout.Content className="content">
+              <Route exact path="/" component={MainContainer} />
               <Route exact path="/patients" component={CheckPatientsView} />
               <Route exact path="/patients/add" component={AddPatientsView} />
             </Layout.Content>
