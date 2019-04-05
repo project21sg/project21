@@ -38,15 +38,17 @@ Do not install compose with `apt` otherwise you will face login issues.
 
 Login via `docker login` with your docker ID (not your email).
 
-### AWS ECS CLI Configuration 
+### AWS ECS CLI Configuration
+
 Follow installation instructions as per these guides.
 
-DO NOT run this unless you need to recreate the ECS instance/services! Doing otherwise will cause the public IP to be refreshed, which means you need to change the DNS host records on wix.com! 
+DO NOT run this unless you need to recreate the ECS instance/services! Doing otherwise will cause the public IP to be refreshed, which means you need to change the DNS host records on wix.com!
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html
 
 Get the keys from AWS -> Security Credentials. Use IAM credentials.
+
 ```
 $ ecs-cli configure profile --profile-name p21-ecs --access-key $AWS_KEY --secret-key $AWS_KEY
 $ ecs-cli configure --region ap-southeast-1 --cluster default --default-launch-type FARGATE --config-name p21-default
@@ -69,7 +71,6 @@ Run `docker build . -t project21/webapp:app-server` to build the image in the se
 
 Run `docker push project21/webapp:app-client` in the client directory.
 Run `docker push project21/webapp:app-server` in the server directory.
-
 
 ### Updating new Instance of Webapp
 
