@@ -4,6 +4,7 @@
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-mongo": "^1.8.0",
+    "koa-morgan": "^1.0.1",
     "koa-router": "^7.4.0"
   }
 }

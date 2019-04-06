@@ -14,6 +14,7 @@ Do `yarn build` to create the production ready build.
 ### Running Server Backend
 
 Run `node app.js` in the /server directory.
+Install `nodemon` globally for development and run `nodemon app.js` to automatically reload the server when the watched files are changed.
 
 ### Running Database Backend
 
@@ -75,3 +76,7 @@ Run `docker push project21/webapp:app-server` in the server directory.
 ### Updating new Instance of Webapp
 
 Update: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service.html
+
+### Troubleshooting
+
+If receiving `TimeoutError: ResourceRequest timed out`, it most likely means that the server is having trouble connecting to the databases. Make sure they are up and running. Otherwise, it may mean that the server/db is overloaded and can't respond to requests quickly enough.
