@@ -80,3 +80,5 @@ Update: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-servi
 ### Troubleshooting
 
 If receiving `TimeoutError: ResourceRequest timed out`, it most likely means that the server is having trouble connecting to the databases. Make sure they are up and running. Otherwise, it may mean that the server/db is overloaded and can't respond to requests quickly enough.
+
+If using WSL and cannot start local `postgresql` service in WSL, you can install postgres on Windows, then access the db by running e.g. `psql -p 5432 -h localhost -U postgres`.

@@ -1,5 +1,3 @@
-const mongo = require("koa-mongo");
-
 const findAll = async ctx => {
   const result = await ctx.db.collection("users").insert({ name: "haha" });
   const userId = result.ops[0]._id.toString();
