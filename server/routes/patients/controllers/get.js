@@ -1,15 +1,14 @@
+const { patient } = require("../../../models");
+
 const findAll = async ctx => {
-  const result = await ctx.db.collection("users").insert({ name: "haha" });
-  const userId = result.ops[0]._id.toString();
-  ctx.body = await ctx.db
-    .collection("users")
-    .find()
-    .toArray();
-  ctx.db.collection("users").remove({
-    _id: mongo.ObjectId(userId)
-  });
+  ctx.body = await patient.findAll();
+};
+
+const findOne = async ctx => {
+  ctx.body = await patient.findOne({ id: ctx.params.id });
 };
 
 module.exports = {
-  findAll
+  findAll,
+  findOne
 };

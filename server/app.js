@@ -4,8 +4,20 @@ const fs = require("fs");
 const Koa = require("koa");
 const logger = require("koa-morgan");
 const Router = require("koa-router");
+const bodyparser = require("koa-bodyparser");
+const onerror = require("koa-onerror");
 
 const app = new Koa();
+
+// middlewares
+onerror(app);
+app.use(
+  bodyparser({
+    extendTypes: {
+      json: ["application/x-javascript"] // will parse application/x-javascript type body as a JSON string
+    }
+  })
+);
 
 // logger
 const accessLogStream = fs.createWriteStream(__dirname + "/access.log", {
