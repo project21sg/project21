@@ -13,6 +13,9 @@ const app = new Koa();
 onerror(app);
 app.use(
   bodyparser({
+    detectJSON: function(ctx) {
+      return /\.json$/i.test(ctx.path);
+    },
     extendTypes: {
       json: ["application/x-javascript"] // will parse application/x-javascript type body as a JSON string
     }
