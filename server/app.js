@@ -6,11 +6,13 @@ const logger = require("koa-morgan");
 const Router = require("koa-router");
 const bodyparser = require("koa-bodyparser");
 const onerror = require("koa-onerror");
+const cors = require("koa2-cors");
 
 const app = new Koa();
 
 // middlewares
 onerror(app);
+app.use(cors());
 app.use(
   bodyparser({
     detectJSON: function(ctx) {
