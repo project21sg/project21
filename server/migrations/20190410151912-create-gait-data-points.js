@@ -13,25 +13,25 @@ module.exports = {
               type: Sequelize.INTEGER
             },
             ax: {
-              type: Sequelize.FLOAT(3, 2)
+              type: Sequelize.FLOAT(5)
             },
             ay: {
-              type: Sequelize.FLOAT(3, 2)
+              type: Sequelize.FLOAT(5)
             },
             az: {
-              type: Sequelize.FLOAT(3, 2)
+              type: Sequelize.FLOAT(5)
             },
             gx: {
-              type: Sequelize.FLOAT(5, 2)
+              type: Sequelize.FLOAT(7)
             },
             gy: {
-              type: Sequelize.FLOAT(5, 2)
+              type: Sequelize.FLOAT(7)
             },
             gz: {
-              type: Sequelize.FLOAT(5, 2)
+              type: Sequelize.FLOAT(7)
             },
             time: {
-              type: Sequelize.DOUBLE(20, 8)
+              type: Sequelize.DOUBLE
             },
             createdAt: {
               allowNull: false,
