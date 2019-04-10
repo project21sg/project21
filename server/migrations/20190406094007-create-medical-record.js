@@ -47,6 +47,22 @@ module.exports = {
               allowNull: false,
               type: Sequelize.INTEGER
             },
+            derivedStepRatio: {
+              allowNull: true,
+              type: Sequelize.INTEGER
+            },
+            derivedStepSymmetry: {
+              allowNull: true,
+              type: Sequelize.INTEGER
+            },
+            derivedGaitSpeed: {
+              allowNull: true,
+              type: Sequelize.INTEGER
+            },
+            derivedFallRiskScore: {
+              allowNull: true,
+              type: Sequelize.INTEGER
+            },
             createdAt: {
               allowNull: false,
               type: Sequelize.DATE

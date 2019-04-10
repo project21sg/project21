@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       psychological: DataTypes.INTEGER,
       cognitiveStatus: DataTypes.INTEGER,
       AMTS: DataTypes.INTEGER,
-      riskFactor: DataTypes.INTEGER
+      riskFactor: DataTypes.INTEGER,
+      derivedStepRatio: DataTypes.INTEGER,
+      derivedStepSymmetry: DataTypes.INTEGER,
+      derivedGaitSpeed: DataTypes.INTEGER,
+      derivedFallRiskScore: DataTypes.INTEGER
     },
     {}
   );
