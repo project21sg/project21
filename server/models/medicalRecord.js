@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   medicalRecord.associate = function(models) {
     medicalRecord.belongsTo(models.patient);
+    medicalRecord.hasMany(models.gaitDataPoint);
   };
   return medicalRecord;
 };
