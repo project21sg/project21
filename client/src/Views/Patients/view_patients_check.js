@@ -14,7 +14,7 @@ class CheckPatientsView extends Component {
 
   /* TODO: should refactor data logic into a container component */
   _retrievePatients() {
-    fetch(`http://${window.location.hostname}:9000/api/patient/all`, {
+    fetch(`http://${window.location.hostname}:9000/api/v1/patients/`, {
       method: "get",
       mode: "cors",
       headers: {
@@ -25,18 +25,18 @@ class CheckPatientsView extends Component {
       .then(resp => resp.json())
       .then(json => {
         this.setState({
-          patients: json.data,
-          selectedPatientData: json.data ? json.data[0] : null,
-          selectedPatientId: json.data[0] ? json.data[0]._id : ""
+          patients: json,
+          selectedPatientData: json ? json[0] : null,
+          selectedPatientId: json[0] ? json[0]._id : ""
         });
-        console.log(json.data);
+        console.log(json);
       })
       .catch(err => console.log(err));
   }
 
   _deletePatient(id) {
     console.log("deleting " + id);
-    fetch(`http://${window.location.hostname}:9000/api/patient/${id}`, {
+    fetch(`http://${window.location.hostname}:9000/api/v1/patients/${id}`, {
       method: "delete",
       mode: "cors"
     })

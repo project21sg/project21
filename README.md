@@ -14,6 +14,7 @@ Do `yarn build` to create the production ready build.
 ### Running Server Backend
 
 Run `node app.js` in the /server directory.
+Install `nodemon` globally for development and run `nodemon app.js` to automatically reload the server when the watched files are changed.
 
 ### Running Database Backend
 
@@ -38,15 +39,17 @@ Do not install compose with `apt` otherwise you will face login issues.
 
 Login via `docker login` with your docker ID (not your email).
 
-### AWS ECS CLI Configuration 
+### AWS ECS CLI Configuration
+
 Follow installation instructions as per these guides.
 
-DO NOT run this unless you need to recreate the ECS instance/services! Doing otherwise will cause the public IP to be refreshed, which means you need to change the DNS host records on wix.com! 
+DO NOT run this unless you need to recreate the ECS instance/services! Doing otherwise will cause the public IP to be refreshed, which means you need to change the DNS host records on wix.com!
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html
 
 Get the keys from AWS -> Security Credentials. Use IAM credentials.
+
 ```
 $ ecs-cli configure profile --profile-name p21-ecs --access-key $AWS_KEY --secret-key $AWS_KEY
 $ ecs-cli configure --region ap-southeast-1 --cluster default --default-launch-type FARGATE --config-name p21-default
@@ -70,7 +73,12 @@ Run `docker build . -t project21/webapp:app-server` to build the image in the se
 Run `docker push project21/webapp:app-client` in the client directory.
 Run `docker push project21/webapp:app-server` in the server directory.
 
-
 ### Updating new Instance of Webapp
 
 Update: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service.html
+
+### Troubleshooting
+
+If receiving `TimeoutError: ResourceRequest timed out`, it most likely means that the server is having trouble connecting to the databases. Make sure they are up and running. Otherwise, it may mean that the server/db is overloaded and can't respond to requests quickly enough.
+
+If using WSL and cannot start local `postgresql` service in WSL, you can install postgres on Windows, then access the db by running e.g. `psql -p 5432 -h localhost -U postgres`.
