@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './tests/test_sequences.dart';
 
+const deviceImageUri = 'assets/img/device.png';
+
 // sets up bluetooth connections, listeners before proceeding with test?
 class TestPage extends StatefulWidget {
   TestPage();
@@ -43,7 +45,10 @@ class _TestPageState extends State<TestPage> {
               // mainAxisSize: MainAxisSize.min,
               children: instructionItems),
           Center(
-            child: Image.asset('assets/img/device.png'),
+            child: Image.asset(
+              deviceImageUri,
+              height: 200,
+            ),
           ),
           ButtonTheme(
               height: 55.0,
