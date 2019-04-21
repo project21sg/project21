@@ -13,9 +13,8 @@ class _SummaryPageState extends State<SummaryPage> {
     return Center(
         child: Card(
             child: Column(children: <Widget>[
-      const ListTile(title: Text('Fall Risk'), subtitle: Text('Level')),
-      const ListTile(title: Text('Stats'), subtitle: Text('Power')),
-      const ListTile(title: Text('Tea Parasite'), subtitle: Text('Speed')),
+      const ListTile(
+          title: Text('Overall Fall Risk Level'), subtitle: Text('Level')),
     ])));
   }
 }

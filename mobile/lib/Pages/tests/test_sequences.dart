@@ -15,7 +15,13 @@ const List<Map<String, List<String>>> _sequences = [
   },
   {
     'header': ['Step 3: Questionaires'],
-    'fields': ['speed']
+    'fields': [
+      'recentFalls',
+      'medications',
+      'psychological',
+      'AMTS',
+      'riskFactor'
+    ],
   }
 ];
 
@@ -36,7 +42,21 @@ class _TestSequencesState extends State<TestSequences> {
             _testData[key] = value;
           })
         });
+    print(_testData);
   }
+
+  _validateData() {
+    bool isAllPresent = true;
+    _sequences.forEach((sequence) => sequence['fields'].forEach(
+        (item) => isAllPresent = isAllPresent && _testData[item] != null));
+    print(isAllPresent);
+    return isAllPresent;
+  }
+
+  // retrive gaitData file and attach to payload
+  // along with all other fields
+  // upload to fixed address
+  _uploadData() {}
 
   // so HACKY
   _checkProceed() {
@@ -78,31 +98,55 @@ class _TestSequencesState extends State<TestSequences> {
       QuestionaireSequence(_fillUpData),
     ];
 
+    final _buildOrder = <Widget>[];
+    _buildOrder.add(
+      Row(
+        children: <Widget>[
+          Expanded(
+              child: IconButton(
+            onPressed: _checkRetreat() ? null : onBackPressed,
+            icon: Icon(Icons.arrow_back_ios, size: 30),
+          )),
+          _sequences.length - 1 == _currentSequence
+              ? ButtonTheme(
+                  height: 35.0,
+                  minWidth: 120.0,
+                  buttonColor: Colors.teal,
+                  child: RaisedButton.icon(
+                      onPressed: _validateData() ? _uploadData : null,
+                      icon: Icon(
+                        Icons.cloud_upload,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'Submit',
+                        textScaleFactor: 1.2,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      )))
+              : Expanded(
+                  child: Text('${_currentSequence + 1}/${_sequences.length}',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20.0)),
+                ),
+          Expanded(
+              child: IconButton(
+            onPressed: _checkProceed() ? null : onNextPressed,
+            icon: Icon(
+              Icons.arrow_forward_ios,
+              size: 30,
+            ),
+          )),
+        ],
+      ),
+    );
+    _buildOrder.add(_sequenceWidgets[_currentSequence]);
     return Scaffold(
         appBar: AppBar(
           title: Text(testSequenceHeader),
         ),
-        body: Column(children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                  child: IconButton(
-                onPressed: _checkRetreat() ? null : onBackPressed,
-                icon: Icon(Icons.arrow_back_ios, size: 30),
-              )),
-              Expanded(
-                child: Text('${_currentSequence + 1}/${_sequences.length}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20.0)),
-              ),
-              Expanded(
-                  child: IconButton(
-                onPressed: _checkProceed() ? null : onNextPressed,
-                icon: Icon(Icons.arrow_forward_ios, size: 30),
-              )),
-            ],
-          ),
-          _sequenceWidgets[_currentSequence],
-        ]));
+        body: Column(children: _buildOrder));
   }
 }

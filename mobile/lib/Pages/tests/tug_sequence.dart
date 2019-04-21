@@ -26,6 +26,7 @@ class _TUGSequenceState extends State<TUGSequence> {
 
   _resetTugDuration() {
     setState(() => _tugDuration = 0);
+    widget.fillUpData({'tugDuration': null});
   }
 
   _toggleStopwatch() {
