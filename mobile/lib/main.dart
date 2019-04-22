@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './Pages/main.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  DotEnv().load('.env');
+  runApp(MyApp());
+}
 
 const appTitle = 'Project 21';
 const mainHeader = 'Project 21';

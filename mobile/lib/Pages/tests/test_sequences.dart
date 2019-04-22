@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './gait_sequence.dart';
 import './tug_sequence.dart';
@@ -27,6 +28,8 @@ const List<Map<String, List<String>>> _sequences = [
 
 class TestSequences extends StatefulWidget {
   TestSequences();
+
+  final baseUrl = DotEnv().env['BASE_URL'];
 
   @override
   _TestSequencesState createState() => _TestSequencesState();

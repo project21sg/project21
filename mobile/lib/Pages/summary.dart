@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SummaryPage extends StatefulWidget {
   SummaryPage();
+
+  final baseUrl = DotEnv().env['BASE_URL'];
 
   @override
   _SummaryPageState createState() => _SummaryPageState();
