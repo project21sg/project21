@@ -14,15 +14,17 @@ Do `yarn build` to create the production ready build.
 ### Running Server Backend
 
 Run `node app.js` in the /server directory.
+Install `nodemon` globally for development and run `nodemon app.js` to automatically reload the server when the watched files are changed.
 
 ### Running Database Backend
 
-To install a local database instance, `sudo apt-get install mongodb`.
-To start the database, `sudo service mongodb start`.
+You will need to install `sequelize` and `nodemon` globally via `sudo npm i -g sequelize nodemon`.
+You also need to have a PostgreSQL database instance, `sudo apt-get install postgresql-10`.
 
-You also need to have a MySQL database instance, `sudo apt-get install mysql-server`.
-If on WSL, the default auth details are `root:root`.
-To start the database, `sudo service mysql start`.
+Run `sequelize db:create`.
+
+If on WSL, you can choose to install PostgreSQL on Windows and create the necessary databases and roles, then connect to that instance via `psql p21_development p21-admin -h localhost`.
+You may also need to open the ports via the firewall settings to allow inbound connections, if developing locally.
 
 ### Docker WSL Setup
 
@@ -38,15 +40,17 @@ Do not install compose with `apt` otherwise you will face login issues.
 
 Login via `docker login` with your docker ID (not your email).
 
-### AWS ECS CLI Configuration 
+### AWS ECS CLI Configuration
+
 Follow installation instructions as per these guides.
 
-DO NOT run this unless you need to recreate the ECS instance/services! Doing otherwise will cause the public IP to be refreshed, which means you need to change the DNS host records on wix.com! 
+DO NOT run this unless you need to recreate the ECS instance/services! Doing otherwise will cause the public IP to be refreshed, which means you need to change the DNS host records on wix.com!
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-cli-tutorial-fargate.html
 
 Get the keys from AWS -> Security Credentials. Use IAM credentials.
+
 ```
 $ ecs-cli configure profile --profile-name p21-ecs --access-key $AWS_KEY --secret-key $AWS_KEY
 $ ecs-cli configure --region ap-southeast-1 --cluster default --default-launch-type FARGATE --config-name p21-default
@@ -70,7 +74,12 @@ Run `docker build . -t project21/webapp:app-server` to build the image in the se
 Run `docker push project21/webapp:app-client` in the client directory.
 Run `docker push project21/webapp:app-server` in the server directory.
 
-
 ### Updating new Instance of Webapp
 
 Update: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service.html
+
+### Troubleshooting
+
+If receiving `TimeoutError: ResourceRequest timed out`, it most likely means that the server is having trouble connecting to the databases. Make sure they are up and running. Otherwise, it may mean that the server/db is overloaded and can't respond to requests quickly enough.
+
+If using WSL and cannot start local `postgresql` service in WSL, you can install postgres on Windows, then access the db by running e.g. `psql -p 5432 -h localhost -U postgres`.

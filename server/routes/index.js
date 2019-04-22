@@ -1,5 +1,5 @@
-var router = require('express').Router();
-
-router.use('/api', require('./api'));
-
-module.exports = router;
+module.exports = router => {
+  router.prefix("/api/v1");
+  router.use("/patients", require("./patients"));
+  router.use("/medical-records", require("./medical-records"));
+};
