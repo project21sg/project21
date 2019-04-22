@@ -26,8 +26,8 @@ class CheckPatientsView extends Component {
       .then(json => {
         this.setState({
           patients: json,
-          selectedPatientData: json ? json[0] : null,
-          selectedPatientId: json[0] ? json[0]._id : ""
+          selectedPatientInfo: json ? json[0] : null,
+          selectedPatientId: json[0] ? json[0].id : ""
         });
         console.log(json);
       })
@@ -53,7 +53,7 @@ class CheckPatientsView extends Component {
   handlePatientSelect(id) {
     this.setState({
       selectedPatientId: id,
-      selectedPatientData: this.state.patients.find(p => p._id === id)
+      selectedPatientInfo: this.state.patients.find(p => p.id === id)
     });
   }
 
@@ -64,15 +64,15 @@ class CheckPatientsView extends Component {
         itemLayout="horizontal"
         dataSource={data}
         renderItem={p => (
-          <List.Item onClick={() => this.handlePatientSelect(p._id)}>
+          <List.Item onClick={() => this.handlePatientSelect(p.id)}>
             <List.Item.Meta
-              title={this.state.selectedPatientId === p._id ? p.name : ""}
-              description={this.state.selectedPatientId !== p._id ? p.name : ""}
+              title={this.state.selectedPatientId === p.id ? p.name : ""}
+              description={this.state.selectedPatientId !== p.id ? p.name : ""}
             />
             <Button
               type="danger"
               size="small"
-              onClick={() => this._deletePatient(p._id)}
+              onClick={() => this._deletePatient(p.id)}
             >
               X
             </Button>
@@ -111,7 +111,8 @@ class CheckPatientsView extends Component {
           >
             {
               <PatientsSummaryView
-                patientData={s.selectedPatientData}
+                patientId={s.selectedPatientId}
+                patientInfo={s.selectedPatientInfo}
                 history={this.props.history}
               />
             }
