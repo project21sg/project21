@@ -34,6 +34,16 @@ const insertOne = async ctx => {
   await gaitDataPoint.bulkCreate(parsedGaitData);
 
   // do derivation calculations here?
+  const derivedData = {
+    derivedStepRatio: 30,
+    derivedStepSymmetry: 45,
+    derivedGaitSpeed: 25,
+    derivedFallRiskScore: 75
+  };
+
+  await medicalRecord.update(derivedData, {
+    where: { id: mrResult.id }
+  });
 
   ctx.body = mrResult.id;
 };
