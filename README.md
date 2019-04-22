@@ -18,12 +18,11 @@ Install `nodemon` globally for development and run `nodemon app.js` to automatic
 
 ### Running Database Backend
 
-To install a local database instance, `sudo apt-get install mongodb`.
-To start the database, `sudo service mongodb start`.
+You will need to install `sequelize` and `nodemon` globally via `sudo npm i -g sequelize nodemon`.
+You also need to have a PostgreSQL database instance, `sudo apt-get install postgresql-10`.
 
-You also need to have a MySQL database instance, `sudo apt-get install mysql-server`.
-If on WSL, the default auth details are `root:root`.
-To start the database, `sudo service mysql start`.
+If on WSL, you can choose to install PostgreSQL on Windows and create the necessary databases and roles, then connect to that instance via `psql p21_development p21-admin -h localhost`.
+You may also need to open the ports via the firewall settings to allow inbound connections, if developing locally.
 
 ### Docker WSL Setup
 
