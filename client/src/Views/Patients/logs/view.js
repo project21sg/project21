@@ -37,6 +37,7 @@ const FALL_RISK_FIELDS = {
 class PatientLogsView extends Component {
   constructor(props) {
     super();
+    console.log(props);
     this.state = {
       patientData: props.patientData,
       gaitData: props.gaitData,
@@ -125,7 +126,7 @@ class PatientLogsView extends Component {
     fields.riskFactor = object.riskFactor;
 
     Object.keys(FALL_RISK_FIELDS).map(
-      key => (fields[key] = FALL_RISK_FIELDS[key][object[key] - 1])
+      key => (fields[key] = FALL_RISK_FIELDS[key][object[key]])
     );
 
     return Object.keys(fields).map(key => {
@@ -142,7 +143,17 @@ class PatientLogsView extends Component {
 
   render() {
     const patientData = this.state.patientData;
-    const gaitData = this.state.gaitData;
+    const gaitData = this.state.gaitData.map(dataPoint => {
+      return {
+        ax: dataPoint.ax,
+        ay: dataPoint.ay,
+        az: dataPoint.az,
+        gx: dataPoint.gx,
+        gy: dataPoint.gy,
+        gz: dataPoint.gz,
+        time: dataPoint.time
+      };
+    });
     const datasets = this.state.datasets;
 
     const selectOptions = datasets
@@ -160,14 +171,23 @@ class PatientLogsView extends Component {
       { level: 45, label: "SECONDS", color: "red" }
     ];
     const gaitBalanceData = [
-      { value: patientData.speed, label: "Speed" },
-      { value: patientData.symmetry, label: "Symmetry" },
-      { value: patientData.stepRatio, label: "Step Ratio" }
+      { value: patientData.derivedGaitSpeed, label: "Speed" },
+      { value: patientData.derivedStepSymmetry, label: "Symmetry" },
+      { value: patientData.derivedStepRatio, label: "Step Ratio" }
     ];
 
     if (!patientData) {
       return <div>Data seems to be missing!</div>;
     }
+
+    const riskFactorData = {
+      recentFalls: patientData.recentFalls,
+      medications: patientData.medications,
+      psychological: patientData.psychological,
+      cognitiveStatus: patientData.cognitiveStatus,
+      AMTS: patientData.AMTS,
+      riskFactor: patientData.riskFactor
+    };
 
     return (
       <div>
@@ -190,7 +210,7 @@ class PatientLogsView extends Component {
         <Row>
           <Col span={5}>
             {this._buildOverallScoreComponent(
-              patientData.fallRiskPercent,
+              patientData.derivedFallRiskScore,
               overallScoreThresholds
             )}
           </Col>
@@ -203,7 +223,7 @@ class PatientLogsView extends Component {
         </Row>
         <Row>
           <Col span={20}>
-            {this._buildRiskFactorDataComponent(patientData.riskFactorData)}
+            {this._buildRiskFactorDataComponent(riskFactorData)}
           </Col>
         </Row>
         <Row>{this._buildGaitDataGraphComponent(gaitData)}</Row>

@@ -4,7 +4,7 @@ const { insertOne } = require("./post");
 // const { patchOne } = require("./patch");
 
 module.exports = router => {
-  router.get("/", findAll);
+  router.post("/patient", findAll); //hack to accept id
   // router.get("/:id", findOne);
   //   router.del("/", destroyAll);
   //   router.del("/:id", destroyOne);
