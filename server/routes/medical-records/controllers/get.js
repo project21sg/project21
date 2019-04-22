@@ -1,4 +1,4 @@
-const { patient } = require("../../../models");
+const { patient, medicalRecord, gaitDataPoint } = require("../../../models");
 
 const findAll = async ctx => {
   const patientId = ctx.request.body.patientId;
@@ -8,14 +8,26 @@ const findAll = async ctx => {
     return;
   }
 
-  const patientFound = await patient.findOne({ where: { id: patientId } });
+  const patientFound = await patient.findOne({
+    where: { id: patientId },
+    include: [
+      {
+        model: medicalRecord,
+        include: [
+          {
+            model: gaitDataPoint
+          }
+        ]
+      }
+    ]
+  });
   if (!patientFound) {
     ctx.status = 400;
     ctx.body = "Patient not found.";
     return;
   }
 
-  const medicalRecords = await patientFound.getMedicalRecords();
+  const medicalRecords = patientFound.medicalRecords;
   ctx.body = medicalRecords;
 };
 
