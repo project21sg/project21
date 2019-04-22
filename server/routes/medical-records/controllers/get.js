@@ -8,14 +8,14 @@ const findAll = async ctx => {
     return;
   }
 
-  const patient = await patient.findOne({ where: { id: patientId } });
-  if (!patient) {
+  const patientFound = await patient.findOne({ where: { id: patientId } });
+  if (!patientFound) {
     ctx.status = 400;
     ctx.body = "Patient not found.";
     return;
   }
 
-  const medicalRecords = await patient.getMedicalRecords();
+  const medicalRecords = await patientFound.getMedicalRecords();
   ctx.body = medicalRecords;
 };
 
