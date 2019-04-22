@@ -12,6 +12,6 @@
     "sequelize": "^5.2.12"
   },
   "scripts": {
-    "start": "sequelize db:migrate && nodemon app.js"
+    "start": "sequelize db:migrate && sequelize db:seed:all && nodemon app.js"
   }
 }
