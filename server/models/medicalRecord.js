@@ -4,7 +4,6 @@ module.exports = (sequelize, DataTypes) => {
     "medicalRecord",
     {
       name: DataTypes.STRING,
-      dateUploaded: DataTypes.DATE,
       tugDuration: DataTypes.INTEGER,
       recentFalls: DataTypes.INTEGER,
       medications: DataTypes.INTEGER,
