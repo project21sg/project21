@@ -58,48 +58,72 @@ class LoginPage extends React.Component {
     const { username, password, submitted, loading, error } = this.state;
 
     return (
-      <div className="col-md-6 col-md-offset-3">
-        <form name="form" onSubmit={this.handleSubmit}>
-          <div
-            className={
-              "form-group" + (submitted && !username ? " has-error" : "")
-            }
-          >
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-              value={username}
-              onChange={this.handleChange}
+      <div id="bigBox">
+        <div id="formContent">
+          <div class="fadeIn first">
+            <img
+              src="https://avatars2.githubusercontent.com/u/43009716?s=200&v=4"
+              id="icon"
+              alt="User Icon"
             />
-            {submitted && !username && (
-              <div className="help-block">Username is required</div>
-            )}
           </div>
-          <div
-            className={
-              "form-group" + (submitted && !password ? " has-error" : "")
-            }
-          >
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={this.handleChange}
-            />
-            {submitted && !password && (
-              <div className="help-block">Password is required</div>
-            )}
-          </div>
-          <div className="form-group">
-            <button className="LoginButton" disabled={loading}>
-              Login
-            </button>
-          </div>
-        </form>
+
+          {/* form */}
+          <form onSubmit={this.handleSubmit}>
+            {/* username */}
+            <div
+              className={
+                "form-group" + (submitted && !username ? " has-error" : "")
+              }
+            >
+              {/* <label htmlFor="username">Username</label> */}
+              <input
+                type="text"
+                className="fadeIn second"
+                id="login"
+                name="username"
+                placeholder="username"
+                value={username}
+                onChange={this.handleChange}
+              />
+              {submitted && !username && (
+                <div className="help-block">Username is required</div>
+              )}
+            </div>
+            {/* username */}
+
+            {/* password */}
+            <div
+              className={
+                "form-group" + (submitted && !password ? " has-error" : "")
+              }
+            >
+              {/* <label htmlFor="password">Password</label> */}
+              <input
+                type="password"
+                className="fadeIn third"
+                id="password"
+                name="password"
+                placeholder="password"
+                value={password}
+                onChange={this.handleChange}
+              />
+              {submitted && !password && (
+                <div className="help-block">Password is required</div>
+              )}
+            </div>
+            {/* password */}
+
+            {/* login button */}
+            <div className="form-group">
+              <button className="fadeIn fourth btn" disabled={loading}>
+                Login
+              </button>
+            </div>
+            {/* login button */}
+          </form>
+          {/* form */}
+        </div>
       </div>
     );
   }
