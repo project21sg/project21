@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu, Layout, Icon, Spin, Form } from "antd";
+import { Menu, Layout, Icon } from "antd";
 import { NavLink, Route, BrowserRouter } from "react-router-dom";
 
 import logoPath from "./res/img/logo.png";
@@ -29,11 +29,8 @@ class App extends React.Component {
 
   render() {
     if (this.state.isLogin) {
-      const antIcon = <Icon className="LoadingSpin" type="loading" spin />;
-
       return (
         <div>
-          <Spin delay={3} spinning={true} indicator={antIcon} />
           <div class="fade-in one">
             <BrowserRouter>
               <Layout style={{ height: "100%" }}>
@@ -42,10 +39,17 @@ class App extends React.Component {
                   style={{ background: "white" }}
                 >
                   <NavLink exact to="/">
-                    <div style={{ width: 100, height: 100, margin: "auto" }}>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        margin: "auto",
+                        alignContent: "center"
+                      }}
+                    >
                       <img
                         src={logoPath}
-                        style={{ width: 75, height: 75, margin: 10 }}
+                        style={{ width: 100, height: 100, margin: 30 }}
                         alt="p21-logo"
                       />
                     </div>

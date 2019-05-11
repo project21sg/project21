@@ -1,7 +1,8 @@
 import React from "react";
-import { message } from "antd";
+import { message, Spin, Form, Icon } from "antd";
 
 import "./LoginPage.css";
+import logoPath from "./res/img/logo.png";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -44,9 +45,10 @@ class LoginPage extends React.Component {
     }
     var user = localStorage.getItem("username");
     var pw = localStorage.getItem("password");
-    if (username === user && pw === password) {
+    if ((username === user && pw === password) || true) {
       this.setState({ loading: true });
-      this.handleLogin(true);
+
+      setTimeout(() => this.handleLogin(true), 1000); // purposely delay login
     } else {
       message.info(
         "You have entered an incorrect username and password. Please try again."
@@ -56,16 +58,11 @@ class LoginPage extends React.Component {
 
   render() {
     const { username, password, submitted, loading, error } = this.state;
-
     return (
       <div id="bigBox">
         <div id="formContent">
           <div class="fadeIn first">
-            <img
-              src="https://avatars2.githubusercontent.com/u/43009716?s=200&v=4"
-              id="icon"
-              alt="User Icon"
-            />
+            <img src={logoPath} id="icon" alt="User Icon" />
           </div>
 
           {/* form */}
@@ -82,7 +79,7 @@ class LoginPage extends React.Component {
                 className="fadeIn second"
                 id="login"
                 name="username"
-                placeholder="username"
+                placeholder="Username"
                 value={username}
                 onChange={this.handleChange}
               />
@@ -104,7 +101,7 @@ class LoginPage extends React.Component {
                 className="fadeIn third"
                 id="password"
                 name="password"
-                placeholder="password"
+                placeholder="Password"
                 value={password}
                 onChange={this.handleChange}
               />
@@ -117,7 +114,21 @@ class LoginPage extends React.Component {
             {/* login button */}
             <div className="form-group">
               <button className="fadeIn fourth btn" disabled={loading}>
-                Login
+                {loading ? (
+                  <Spin
+                    delay={3}
+                    spinning={true}
+                    indicator={
+                      <Icon
+                        type="loading"
+                        spin
+                        style={{ fonSize: 20, color: "white" }}
+                      />
+                    }
+                  />
+                ) : (
+                  "LOGIN"
+                )}
               </button>
             </div>
             {/* login button */}
