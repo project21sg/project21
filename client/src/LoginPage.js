@@ -26,6 +26,11 @@ class LoginPage extends React.Component {
   componentWillMount() {
     localStorage.setItem("username", "admin@p21.com");
     localStorage.setItem("password", "adminadmin");
+
+    // login automatically if already done before
+    if (localStorage.getItem("username") !== null) {
+      this.handleLogin(true);
+    }
   }
 
   handleChange(e) {
