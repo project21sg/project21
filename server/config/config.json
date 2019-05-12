@@ -4,6 +4,7 @@
     "password": "rootie",
     "database": "p21_development",
     "host": "127.0.0.1",
+    "port": "5432",
     "dialect": "postgres"
   },
   "test": {
@@ -15,9 +16,10 @@
   },
   "production": {
     "username": "p21-admin",
-    "password": null,
+    "password": "rootie",
     "database": "p21_production",
-    "host": "127.0.0.1",
+    "host": "postgres",
+    "port": "5432",
     "dialect": "postgres"
   }
 }

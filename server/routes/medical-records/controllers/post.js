@@ -1,7 +1,7 @@
 const { medicalRecord, gaitDataPoint } = require("../../../models");
 
 const insertOne = async ctx => {
-  const patientId = ctx.request.body.patientId;
+  const patientId = ctx.request.body.data.patientId;
   if (!patientId) {
     ctx.status = 400;
     ctx.body = "PatientId not specified.";

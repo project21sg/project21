@@ -13,8 +13,10 @@ const destroyAll = async ctx => {
 };
 
 const destroyOne = async ctx => {
-  const patientToDelete = await patient.findOne({ id: ctx.params.id });
-  await patientToDelete.destroy();
+  const patientToDelete = await patient.findOne({
+    where: { id: ctx.params.id }
+  });
+  await patientToDelete.destroy(ctx);
   ctx.body = patientToDelete.id;
 };
 

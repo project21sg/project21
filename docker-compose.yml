@@ -37,6 +37,7 @@ services:
     environment:
       POSTGRES_PASSWORD: rootie
       POSTGRES_USER: p21-admin
+      POSTGRES_DB: p21_production
     networks:
       - webappnetwork
 

@@ -33,6 +33,17 @@ const FALL_RISK_FIELDS = {
   ]
 };
 
+const overallScoreThresholds = [
+  { level: 30, label: "LOW", color: "green" },
+  { level: 60, label: "MEDIUM", color: "orange" },
+  { level: 100, label: "HIGH", color: "red" }
+];
+const tugThresholds = [
+  { level: 20, label: "SECONDS", color: "green" },
+  { level: 40, label: "SECONDS", color: "orange" },
+  { level: 60, label: "SECONDS", color: "red" }
+];
+
 //need to fetch labels from central source of risk factor data
 class PatientLogsView extends Component {
   constructor(props) {
@@ -56,7 +67,7 @@ class PatientLogsView extends Component {
     }
   }
 
-  _buildOverallScoreComponent(value, thresholds) {
+  _buildOverallScoreComponent(value) {
     return (
       <Card style={{ margin: 5, height: 250 }}>
         <span style={{ fontWeight: "bold", fontSize: 15 }}>Overall Score</span>
@@ -66,7 +77,7 @@ class PatientLogsView extends Component {
           value={value}
           maxValue={100}
           suffix={"%"}
-          thresholds={thresholds}
+          thresholds={overallScoreThresholds}
         />
       </Card>
     );
@@ -81,7 +92,7 @@ class PatientLogsView extends Component {
     );
   }
 
-  _buildTUGComponent(value, thresholds) {
+  _buildTUGComponent(value) {
     return (
       <Card style={{ margin: 5, height: 250 }}>
         <span style={{ fontWeight: "bold", fontSize: 15 }}>
@@ -90,10 +101,10 @@ class PatientLogsView extends Component {
         <SingleCircularBar
           height={200}
           width={"99%"}
-          value={value}
+          value={Math.min(value, 60)}
           maxValue={60}
           suffix={""}
-          thresholds={thresholds}
+          thresholds={tugThresholds}
         />
       </Card>
     );
@@ -158,18 +169,8 @@ class PatientLogsView extends Component {
 
     const selectOptions = datasets
       .filter(x => x !== null && x.name !== undefined)
-      .map(x => x.name + " " + x.dateUploaded);
+      .map(x => `${x.createdAt} : ${x.name}`);
 
-    const overallScoreThresholds = [
-      { level: 30, label: "LOW", color: "green" },
-      { level: 60, label: "MEDIUM", color: "orange" },
-      { level: 100, label: "HIGH", color: "red" }
-    ];
-    const tugThresholds = [
-      { level: 15, label: "SECONDS", color: "green" },
-      { level: 30, label: "SECONDS", color: "orange" },
-      { level: 45, label: "SECONDS", color: "red" }
-    ];
     const gaitBalanceData = [
       { value: patientData.derivedGaitSpeed, label: "Speed" },
       { value: patientData.derivedStepSymmetry, label: "Symmetry" },
@@ -179,6 +180,9 @@ class PatientLogsView extends Component {
     if (!patientData) {
       return <div>Data seems to be missing!</div>;
     }
+
+    const derivedFallRiskScore = patientData.derivedFallRiskScore;
+    const tugDuration = patientData.tugDuration;
 
     const riskFactorData = {
       recentFalls: patientData.recentFalls,
@@ -197,7 +201,7 @@ class PatientLogsView extends Component {
               block
               key="dataSelect"
               defaultValue={0}
-              onChange={this._handleDataSelect}
+              onChange={this.handleDataSelect}
             >
               {selectOptions.map((x, i) => (
                 <Select.Option key={x} value={i}>
@@ -209,17 +213,12 @@ class PatientLogsView extends Component {
         </Row>
         <Row>
           <Col span={5}>
-            {this._buildOverallScoreComponent(
-              patientData.derivedFallRiskScore,
-              overallScoreThresholds
-            )}
+            {this._buildOverallScoreComponent(derivedFallRiskScore)}
           </Col>
           <Col span={10}>
             {this._buildBalanceDataComponent(gaitBalanceData)}
           </Col>
-          <Col span={5}>
-            {this._buildTUGComponent(patientData.tugDuration, tugThresholds)}
-          </Col>
+          <Col span={5}>{this._buildTUGComponent(tugDuration)}</Col>
         </Row>
         <Row>
           <Col span={20}>
