@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Menu, Layout, Icon } from "antd";
 import { NavLink, Route, BrowserRouter } from "react-router-dom";
 

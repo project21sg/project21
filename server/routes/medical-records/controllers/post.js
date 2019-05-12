@@ -15,8 +15,6 @@ const insertOne = async ctx => {
     return;
   }
 
-  console.log(gaitData, data);
-
   data.patientId = patientId;
   const mrResult = await medicalRecord.create(data);
 

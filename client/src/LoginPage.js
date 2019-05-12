@@ -1,5 +1,5 @@
 import React from "react";
-import { message, Spin, Form, Icon } from "antd";
+import { message, Spin, Icon } from "antd";
 
 import "./LoginPage.css";
 import logoPath from "./res/img/logo.png";
@@ -62,7 +62,7 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    const { username, password, submitted, loading, error } = this.state;
+    const { username, password, submitted, loading } = this.state;
     return (
       <div id="bigBox">
         <div id="formContent">

@@ -32,8 +32,8 @@ class PatientForm extends Component {
   };
 
   //TODO: refactor into data logic container component (parent)
-  _uploadData(values) {
-    var data = {
+  _uploadData = async values => {
+    const data = {
       name: values.name,
       nric: values.nric,
       gender: values.gender,
@@ -51,26 +51,27 @@ class PatientForm extends Component {
     };
 
     this.setState({ waiting: true });
-    fetch(`http://${window.location.hostname}:9000/api/v1/patients/`, {
-      method: "post",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-      .then(function(json) {
-        console.log(json);
-        //this.setState({ waiting: false }); //need to set loading outside
-        message.success("Patient successfully added!");
-      })
-      .catch(err => {
-        console.log(err);
-        if (err.status !== 200)
-          message.error("Error occured while adding patient!");
-      });
-  }
+    const resp = await fetch(
+      `http://${window.location.hostname}:9000/api/v1/patients/`,
+      {
+        method: "post",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }
+    );
+    console.log(resp);
+
+    if (resp.ok) {
+      message.success("Patient successfully added!");
+    } else {
+      console.log(resp.text);
+      message.error("Error occured while adding patient!");
+    }
+  };
 
   _buildFormItemView(field) {
     switch (field.inputType) {
