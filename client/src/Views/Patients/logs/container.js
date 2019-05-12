@@ -29,9 +29,11 @@ class PatientLogsContainer extends Component {
 
   _handleDataSelect(value) {
     this.setState(prevState => {
+      console.log(prevState.datasets, value);
       return {
         selectedDataIdx: value,
-        patientData: prevState.datasets[value]
+        patientData: prevState.datasets[value],
+        gaitData: prevState.datasets[value].gaitDataPoints
       };
     });
   }

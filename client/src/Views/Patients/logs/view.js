@@ -158,7 +158,7 @@ class PatientLogsView extends Component {
 
     const selectOptions = datasets
       .filter(x => x !== null && x.name !== undefined)
-      .map(x => x.name + " " + x.dateUploaded);
+      .map(x => `${x.createdAt} : ${x.name}`);
 
     const overallScoreThresholds = [
       { level: 30, label: "LOW", color: "green" },
@@ -197,7 +197,7 @@ class PatientLogsView extends Component {
               block
               key="dataSelect"
               defaultValue={0}
-              onChange={this._handleDataSelect}
+              onChange={this.handleDataSelect}
             >
               {selectOptions.map((x, i) => (
                 <Select.Option key={x} value={i}>
