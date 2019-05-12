@@ -25,6 +25,7 @@ class DataForm extends Component {
     };
 
     this._processFileAndUpload = this._processFileAndUpload.bind(this);
+    this._uploadData = this._uploadData.bind(this);
   }
 
   handleSubmit = e => {
@@ -33,7 +34,6 @@ class DataForm extends Component {
       if (!err) {
         console.log("Received values of form: ", values);
         this._uploadData(values);
-        message.success("Data successfully added!");
         //this.props.history.push('/patients');
       }
     });
@@ -53,7 +53,7 @@ class DataForm extends Component {
             buffer = [];
           }
         });
-        //console.log(data);
+        console.log(data);
         resolve(data);
       };
       reader.onerror = reject;
@@ -62,49 +62,52 @@ class DataForm extends Component {
   }
 
   //TODO: refactor into data logic container component (parent)
-  _uploadData(values) {
+  _uploadData = async values => {
     //console.log(values);
     var dateUploaded = new Date();
     var data = {
-      data: {
-        name: values["dataset name"],
-        dateUploaded: dateUploaded,
-        tugDuration: values["timed up and go duration"],
-        recentFalls: values["recent falls"],
-        medications: values.medications,
-        psychological: values.psychological,
-        AMTS: values["cognitive status"],
-        riskFactor: this.state.fields[2].fields
-          .map(f => values[f.label.toLowerCase()])
-          .reduce((acc, v) => (v !== undefined ? acc + v : acc), 0)
-      }
+      patientId: this.state.patientId,
+      name: values["dataset name"],
+      dateUploaded: dateUploaded,
+      tugDuration: values["timed up and go duration"],
+      recentFalls: values["recent falls"],
+      medications: values.medications,
+      psychological: values.psychological,
+      cognitiveStatus: values["cognitive status"],
+      AMTS: values["cognitive status"],
+      riskFactor: this.state.fields[2].fields
+        .map(f => values[f.label.toLowerCase()])
+        .reduce((acc, v) => (v !== undefined ? acc + v : acc), 0)
     };
     //console.log(data);
     //need to unpack the file values from csv into arrays
-    var gaitDataFile = values["gait data file"].file;
+    const gaitDataFile = values["gait data file"].file;
     //console.log(gaitDataFile);
     this.setState({ waiting: true });
-    this._processFileAndUpload(gaitDataFile).then(gaitData => {
-      fetch(
-        `http://${window.location.hostname}:9000/api/v1/patients/${
-          this.state.patientId
-        }/data`,
-        {
-          method: "post",
-          mode: "cors",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ data: data, gaitData: gaitData })
-        }
-      ).then(function(json) {
-        console.log(json);
-        this.setState({ waiting: false });
-        this.props.history.push("/patients");
-      });
-    });
-  }
+    const gaitData = await this._processFileAndUpload(gaitDataFile);
+
+    data["gaitData"] = gaitData;
+    const resp = await fetch(
+      `http://${window.location.hostname}:9000/api/v1/medical-records/`,
+      {
+        method: "post",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ data: data })
+      }
+    );
+    console.log(resp);
+    this.setState({ waiting: false });
+    this.props.history.push("/patients");
+    if (resp.status === 200) {
+      message.success("Data successfully added!");
+    } else {
+      message.error("Something went wrong.");
+    }
+  };
 
   _buildFormItemView(field) {
     switch (field.inputType) {

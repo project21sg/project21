@@ -73,9 +73,8 @@ class CheckPatientsView extends Component {
               type="danger"
               size="small"
               onClick={() => this._deletePatient(p.id)}
-            >
-              X
-            </Button>
+              icon="close"
+            />
           </List.Item>
         )}
       />

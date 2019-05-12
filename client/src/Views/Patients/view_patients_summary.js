@@ -74,7 +74,7 @@ class PatientsSummaryView extends Component {
           </Tabs.TabPane>
           <Tabs.TabPane tab="Conduct Test" key="3">
             <PatientTestView
-              patientId={s.patientData && s.patientData.id}
+              patientId={s.patientId}
               history={this.props.history}
             />
           </Tabs.TabPane>
