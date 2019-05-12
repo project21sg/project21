@@ -69,7 +69,7 @@ class DataForm extends Component {
       patientId: this.state.patientId,
       name: values["dataset name"],
       dateUploaded: dateUploaded,
-      tugDuration: parseInt(values["timed up and go duration"]),
+      tugDuration: parseInt(values["timed up and go duration"], 10),
       recentFalls: values["recent falls"],
       medications: values.medications,
       psychological: values.psychological,
