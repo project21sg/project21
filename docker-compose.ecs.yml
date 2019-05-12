@@ -6,12 +6,12 @@ services:
     image: project21/webapp:app-client
     #restart: always
     ports:
-        - "80:80"
+      - "80:80"
     #networks:
     #    - webappnetwork
     logging:
       driver: awslogs
-      options: 
+      options:
         awslogs-group: p21-client
         awslogs-region: ap-southeast-1
         awslogs-stream-prefix: nginx_react
@@ -22,7 +22,7 @@ services:
     image: project21/webapp:app-server
     #restart: always
     ports:
-        - "9000:9000"
+      - "9000:9000"
     # depends_on:
     #    - mongodb
     #    - mysql
@@ -30,50 +30,61 @@ services:
     #    - webappnetwork
     logging:
       driver: awslogs
-      options: 
+      options:
         awslogs-group: p21-server
         awslogs-region: ap-southeast-1
         awslogs-stream-prefix: express
-
-  mongodb: 
-    image: mongo
-    #restart: always
-    #container_name: mongodb
-    # volumes:
-    #     - ./data-node:/data/db
-    ports:
-      - 27017:27017
-    command: mongod --noauth --smallfiles
-    #networks:
-    #    - webappnetwork
-    logging:
-      driver: awslogs
-      options: 
-        awslogs-group: p21-databases
-        awslogs-region: ap-southeast-1
-        awslogs-stream-prefix: mongo
-
-  mysql:
-    image: mysql
-    #restart: always
-    #container_name: mysqldb
-    command: --default-authentication-plugin=mysql_native_password
-    #networks:
-    #    - webappnetwork
-    ports:
-      - 3306:3306
+  postgres:
+    image: postgres
+    # restart: always
+    # container_name: postgresdb
     environment:
-      MYSQL_USER: rootie
-      MYSQL_PASSWORD: rootie
-      MYSQL_ROOT_PASSWORD: rootie
-      MYSQL_DATABASE: p21_main
+      POSTGRES_PASSWORD: rootie
+      POSTGRES_USER: p21-admin
     logging:
       driver: awslogs
-      options: 
+      options:
         awslogs-group: p21-databases
         awslogs-region: ap-southeast-1
-        awslogs-stream-prefix: mysql
+        awslogs-stream-prefix: postgres
+  # mongodb:
+  #   image: mongo
+  #   #restart: always
+  #   #container_name: mongodb
+  #   # volumes:
+  #   #     - ./data-node:/data/db
+  #   ports:
+  #     - 27017:27017
+  #   command: mongod --noauth --smallfiles
+  #   #networks:
+  #   #    - webappnetwork
+  #   logging:
+  #     driver: awslogs
+  #     options:
+  #       awslogs-group: p21-databases
+  #       awslogs-region: ap-southeast-1
+  #       awslogs-stream-prefix: mongo
+  # mysql:
+  #   image: mysql
+  #   #restart: always
+  #   #container_name: mysqldb
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   #networks:
+  #   #    - webappnetwork
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     MYSQL_USER: rootie
+  #     MYSQL_PASSWORD: rootie
+  #     MYSQL_ROOT_PASSWORD: rootie
+  #     MYSQL_DATABASE: p21_main
+  #   logging:
+  #     driver: awslogs
+  #     options:
+  #       awslogs-group: p21-databases
+  #       awslogs-region: ap-southeast-1
+  #       awslogs-stream-prefix: mysql
 
 networks:
-    webappnetwork:
-        driver: bridge
+  webappnetwork:
+    driver: bridge
