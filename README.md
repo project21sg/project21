@@ -74,6 +74,8 @@ Run `docker build . -t project21/webapp:app-server` to build the image in the se
 Run `docker push project21/webapp:app-client` in the client directory.
 Run `docker push project21/webapp:app-server` in the server directory.
 
+NOTE: AWS ECS somehow prefers `localhost` instead of `postgres` or container names like Docker does. You need to rename the host address in the server's config files to localhost before doing the above.
+
 ### Updating new Instance of Webapp
 
 Update: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service.html

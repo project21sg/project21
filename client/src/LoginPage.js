@@ -45,17 +45,10 @@ class LoginPage extends React.Component {
     if (!(username && password)) {
       return;
     }
-    var user = localStorage.getItem("username");
-    var pw = localStorage.getItem("password");
-    if ((username === user && pw === password) || true) {
-      this.setState({ loading: true });
+    localStorage.setItem("username", username);
+    this.setState({ loading: true });
 
-      setTimeout(() => this.handleLogin(true), 1000); // purposely delay login
-    } else {
-      message.info(
-        "You have entered an incorrect username and password. Please try again."
-      );
-    }
+    setTimeout(() => this.handleLogin(true), 1000); // purposely delay login
   }
 
   render() {

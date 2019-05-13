@@ -38,7 +38,7 @@ const insertOne = async ctx => {
     derivedStepRatio: 30,
     derivedStepSymmetry: 45,
     derivedGaitSpeed: 25,
-    derivedFallRiskScore: 75
+    derivedFallRiskScore: 14
   };
 
   await medicalRecord.update(derivedData, {

@@ -9,7 +9,7 @@
 
 # serve build through nginx
 FROM nginx:alpine
-#COPY /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY /build /usr/share/nginx/html
 EXPOSE 80
 CMD /usr/sbin/nginx -g "daemon off;"
