@@ -20,10 +20,11 @@ class CircularBar extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.value !== this.props.value &&
-      this.props.value instanceof Number
-    ) {
+    console.log(
+      `${prevProps.value !== this.props.value &&
+        this.props.value instanceof Number} ok`
+    );
+    if (prevProps.value !== this.props.value) {
       this.setState({
         value: this.props.value,
         thresholds: this.props.thresholds.sort((e, n) => e.level - n.level)

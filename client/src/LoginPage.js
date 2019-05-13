@@ -1,5 +1,5 @@
 import React from "react";
-import { message, Spin, Icon } from "antd";
+import { Spin, Icon } from "antd";
 
 import "./LoginPage.css";
 import logoPath from "./res/img/logo.png";
